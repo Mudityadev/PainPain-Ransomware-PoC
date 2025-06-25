@@ -8,4 +8,7 @@ __pycache__/
 # Logs and data
 logs/
 c2_data/
-darkSecureFolder/ 
+darkSecureFolder/
+
+# Server
+c2_server/darkSecureFolder/ 
