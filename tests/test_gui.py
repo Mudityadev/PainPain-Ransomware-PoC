@@ -1,8 +1,10 @@
 import pytest
+
 from ransomware.gui.main import RansomwareGUI
 
+
 @pytest.mark.gui
-def test_gui_launch(qtbot):
+def test_gui_launch_real(qtbot):
     gui = RansomwareGUI(target_dir="/tmp/test")
     qtbot.addWidget(gui)
     gui.show()
@@ -10,6 +12,8 @@ def test_gui_launch(qtbot):
     assert "encrypted" in gui.title().lower()
     gui.close()
 
-def test_gui_launch():
+
+def test_gui_launch_dummy():
     # Dummy test for GUI launch
-    assert True 
+    assert True
+
