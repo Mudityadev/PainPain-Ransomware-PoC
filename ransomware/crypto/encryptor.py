@@ -30,7 +30,7 @@ class Encryptor:
             encrypted = self.fernet.encrypt(data)
             with open(file_path, 'wb') as f:
                 f.write(encrypted)
-            logger.info(f"Encrypted {file_path}")
+            # logger.info(f"Encrypted {file_path}")  # Suppress per-file log
         except Exception as e:
             logger.error(f"Encryption error: {e}")
             raise EncryptionError(str(e))
@@ -45,7 +45,7 @@ class Encryptor:
             decrypted = self.fernet.decrypt(data)
             with open(file_path, 'wb') as f:
                 f.write(decrypted)
-            logger.info(f"Decrypted {file_path}")
+            # logger.info(f"Decrypted {file_path}")  # Suppress per-file log
         except Exception as e:
             logger.error(f"Decryption error: {e}")
             raise EncryptionError(str(e))
