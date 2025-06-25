@@ -87,3 +87,60 @@ from ransomware.gui_main import WannaCryGUI
 ```
 
 All previous functionality is preserved, but now organized for clarity and maintainability.
+
+## Running with Docker (with GUI/X11 Support)
+
+This project supports running in a Docker container, including the GUI (Tkinter) via X11 forwarding.
+
+### 1. Build the Docker Image
+
+```sh
+docker build -t ransomware-poc .
+```
+
+### 2. Run the Container with X11 Forwarding
+
+#### **On Linux**
+
+```sh
+xhost +local:root  # Allow local root to access X11
+
+docker run -it \
+    -e DISPLAY=$DISPLAY \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    ransomware-poc
+```
+
+#### **On macOS**
+- Install XQuartz and start it (`open -a XQuartz`).
+- In XQuartz preferences, enable "Allow connections from network clients".
+- Run:
+
+```sh
+IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
+export DISPLAY=$IP:0
+xhost + $IP
+
+docker run -it \
+    -e DISPLAY=$DISPLAY \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    ransomware-poc
+```
+
+#### **On Windows (with WSL2)**
+- Install an X server (e.g., VcXsrv or Xming) and start it.
+- Set the DISPLAY variable in your WSL2 shell:
+
+```sh
+export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0
+export LIBGL_ALWAYS_INDIRECT=1
+
+docker run -it \
+    -e DISPLAY=$DISPLAY \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    ransomware-poc
+```
+
+**Note:**
+- The GUI will appear on your host system if X11 is set up correctly.
+- For headless or server environments, you can run without the GUI by modifying the entrypoint in the Dockerfile.

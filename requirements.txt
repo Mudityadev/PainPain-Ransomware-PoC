@@ -1,5 +1,14 @@
 pycryptodome
 python-dotenv
+cryptography
+loguru
+pydantic
+requests
+pytest
+pytest-qt
+# tkinter (system package, e.g. python3-tk)
+pydantic-settings
+Flask
 
 # For GUI
 # (tkinter is included with standard Python installations) 
