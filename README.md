@@ -1,5 +1,3 @@
-
-
 # PainPain Ransomware POC
 
 **PainPain** is a Proof-of-Concept (PoC) ransomware project for educational and research purposes only. It demonstrates how modern ransomware can discover, encrypt, and exfiltrate files, and features a realistic, modern GUI inspired by infamous ransomware attacks.
@@ -65,17 +63,7 @@ python c2_server_alt.py
 ## Project Structure
 - `main_v2.py` — Main ransomware PoC script
 - `wannacry_gui.py` — Modern ransomware GUI
-- `c2_server.py` / `c2_server_alt.py` — Simulated C2 servers
+- `c2_server/` — All C2 server code and related files
 - `discover.py` — File discovery logic
 - `modify.py` — File encryption/decryption logic
-- `context.txt` — Project context and structure
-- `requirements.txt` — Python dependencies
-- `.env.example` — Example environment variable file (copy to `.env` and fill in your own values)
-
----
-
-## Credits
-- Inspired by real-world ransomware for educational demonstration.
-- GUI design inspired by WannaCry and modern ransomware UX.
-
----
+- `
