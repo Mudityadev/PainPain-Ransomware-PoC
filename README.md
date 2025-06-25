@@ -88,6 +88,61 @@ from ransomware.gui_main import WannaCryGUI
 
 All previous functionality is preserved, but now organized for clarity and maintainability.
 
+## Modern HTTP POST C2 Architecture
+
+- The C2 server now uses Flask and receives exfiltration data via HTTP POST at `/exfiltrate`.
+- The agent sends machine and target directory info to the C2 server before encryption.
+- All communication is logged and robust to errors.
+
+## Agent Features
+- Modular, production-ready Python package (`ransomware/`)
+- Professional logging (console and file, with timestamps and context)
+- Robust error handling and custom exceptions
+- Configurable via `.env` and `AppConfig`
+- Full encryption/decryption cycle with key management
+- GUI (Tkinter) for user interaction and ransom note
+- HTTP POST C2 communication (see `core.py` and `network/client.py`)
+- Unit and integration tests (see `tests/`)
+
+## C2 Server Features
+- Flask-based HTTP POST endpoint (`/exfiltrate`)
+- Logs all connections and exfiltration events
+- Stores machine data and exfiltrated files in organized folders
+- Status endpoint and health checks (recommended for production)
+
+## Configuration
+- All config is managed via `.env` and `ransomware/config.py`.
+- Example `.env`:
+
+```
+c2_server_url="http://localhost:8080"
+encryption_key_path="./encryption.key"
+log_level="INFO"
+environment="development"
+timeout=30
+hardcoded_key="your_hardcoded_key_here"
+decrypt_code="bitcoin"
+server_public_rsa_key="-----BEGIN PUBLIC KEY-----\n...\n-----END PUBLIC KEY-----"
+server_private_rsa_key="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----"
+extension=".wasted"
+host="127.0.0.1"
+port=8080
+payment_address="1BitcoinEaterAddressDontSendf59kuE"
+```
+
+## Developer Standards & Extensibility
+- All classes and functions are fully documented with docstrings and comments.
+- Type hints are used throughout for clarity and tooling.
+- Logging is consistent and professional.
+- The codebase is ready for plugins, metrics, and further automation.
+- Contributions should follow the modular structure and docstring standards.
+
+## Running the Project
+- See the Docker/X11 section above for containerized usage.
+- To run locally:
+  1. Start the C2 server: `python c2_server/c2_server_alt.py`
+  2. Run the agent: `python main.py -p "<target_dir>" -e`
+
 ## Running with Docker (with GUI/X11 Support)
 
 This project supports running in a Docker container, including the GUI (Tkinter) via X11 forwarding.

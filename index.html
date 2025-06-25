@@ -3,15 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PainPain – Ransomware PoC</title>
+    <title>Ransomware PoC - Modern, Scalable, Secure</title>
+    <link rel="stylesheet" href="web/style.css">
+    <link rel="icon" href="web/assets/demo.png">
 
     <!-- Bootstrap 5 -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-
-
 
     <!-- =====  Dark-Apple palette  ===== -->
     <style>
@@ -189,36 +189,24 @@
     <!-- ••• Page content ••• -->
     <main class="flex-shrink-0">
       <!-- Hero -->
-      <section id="hero" class="container py-5 text-center">
-        <div class="hero-box mx-auto p-5" style="max-width: 640px">
-          <h1 class="display-4 fw-bold mb-3 accent-heading">
-            PainPain Ransomware PoC
-          </h1>
-          <p class="lead mb-4">
-            A modern, safe ransomware simulation for research and education.
-            Realistic GUI, encryption and C2 demo. 🔒
-          </p>
-          <a href="#usage" class="btn btn-lg accent-btn px-5 py-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:0.5em;">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"/>
-            </svg>
-            Download
-          </a>
-        </div>
-      </section>
+      <header class="hero">
+        <img src="web/assets/demo.png" alt="Ransomware PoC Demo" class="hero-img">
+        <h1>Ransomware PoC</h1>
+        <p class="subtitle">A modern, modular, and secure proof-of-concept for ransomware research and education.</p>
+      </header>
 
       <!-- Features -->
       <section id="features" class="container py-5">
-        <h2 class="text-center fw-bold mb-5 accent-heading">Features</h2>
+        <h2 class="text-center fw-bold mb-5 accent-heading">Key Features</h2>
         <div class="row g-4 justify-content-center">
           <!-- single card -->
           <div class="col-12 col-md-6 col-lg-3">
             <div class="card glass text-center h-100 border-0">
               <div class="card-body">
-                <div class="fs-1 mb-2">🔍</div>
-                <h5 class="card-title">File Discovery</h5>
+                <div class="fs-1 mb-2">🛡️</div>
+                <h5 class="card-title">Modern HTTP POST C2 Architecture</h5>
                 <p class="card-text">
-                  Recursively scans directories for target files.
+                  Secure, scalable, and easy to extend.
                 </p>
               </div>
             </div>
@@ -228,22 +216,10 @@
           <div class="col-12 col-md-6 col-lg-3">
             <div class="card glass text-center h-100 border-0">
               <div class="card-body">
-                <div class="fs-1 mb-2">🔐</div>
-                <h5 class="card-title">AES Encryption</h5>
+                <div class="fs-1 mb-2">🔒</div>
+                <h5 class="card-title">Full Encryption/Decryption Cycle</h5>
                 <p class="card-text">
-                  Encrypts files securely with a hard-coded key.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-md-6 col-lg-3">
-            <div class="card glass text-center h-100 border-0">
-              <div class="card-body">
-                <div class="fs-1 mb-2">🧠</div>
-                <h5 class="card-title">C2 Server</h5>
-                <p class="card-text">
-                  Simulates exfiltration of file and system data.
+                  Robust cryptography and key management.
                 </p>
               </div>
             </div>
@@ -253,9 +229,57 @@
             <div class="card glass text-center h-100 border-0">
               <div class="card-body">
                 <div class="fs-1 mb-2">🖥️</div>
-                <h5 class="card-title">Modern GUI</h5>
+                <h5 class="card-title">GUI (Tkinter)</h5>
                 <p class="card-text">
-                  Features a realistic ransomware interface.
+                  Realistic ransom note and user interaction.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-3">
+            <div class="card glass text-center h-100 border-0">
+              <div class="card-body">
+                <div class="fs-1 mb-2">📦</div>
+                <h5 class="card-title">Modular Python Package</h5>
+                <p class="card-text">
+                  Clean, maintainable, and ready for large teams.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-3">
+            <div class="card glass text-center h-100 border-0">
+              <div class="card-body">
+                <div class="fs-1 mb-2">📑</div>
+                <h5 class="card-title">Professional Logging</h5>
+                <p class="card-text">
+                  Structured logs for both console and file.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-3">
+            <div class="card glass text-center h-100 border-0">
+              <div class="card-body">
+                <div class="fs-1 mb-2">⚙️</div>
+                <h5 class="card-title">Configurable & Extensible</h5>
+                <p class="card-text">
+                  .env, type hints, docstrings, and plugin-ready.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-3">
+            <div class="card glass text-center h-100 border-0">
+              <div class="card-body">
+                <div class="fs-1 mb-2">🧪</div>
+                <h5 class="card-title">Tested & CI/CD Ready</h5>
+                <p class="card-text">
+                  Unit/integration tests and GitHub Actions workflow.
                 </p>
               </div>
             </div>
@@ -263,89 +287,44 @@
         </div>
       </section>
 
+      <!-- C2 Server -->
+      <section id="c2" class="container py-5">
+        <h2 class="text-center fw-bold mb-5 accent-heading">HTTP POST C2 Server</h2>
+        <p>The C2 server is built with Flask and receives exfiltration data via HTTP POST at <code>/exfiltrate</code>. All connections and file exfiltration events are logged and stored securely.</p>
+      </section>
+
+      <!-- Developer Standards -->
+      <section id="dev" class="container py-5">
+        <h2 class="text-center fw-bold mb-5 accent-heading">Developer Standards</h2>
+        <ul>
+          <li>📚 Full Documentation: Every class and function is commented and explained.</li>
+          <li>📝 Type Hints: For clarity and IDE support.</li>
+          <li>🔄 Extensible: Ready for plugins, metrics, and automation.</li>
+          <li>🤝 Contributions Welcome: Follow the modular structure and docstring standards.</li>
+        </ul>
+      </section>
+
       <!-- Usage -->
       <section id="usage" class="container py-5">
-        <h2 class="text-center fw-bold mb-5 accent-heading">Usage</h2>
+        <h2 class="text-center fw-bold mb-5 accent-heading">How to Run</h2>
         <ol
           class="list-group list-group-numbered mx-auto"
           style="max-width: 620px"
         >
           <li class="list-group-item bg-transparent border-secondary">
-            Install requirements
-            <span class="d-block text-danger small"
-              >pip install -r requirements.txt</span
-            >
+            Start the C2 server: <code>python c2_server/c2_server_alt.py</code>
           </li>
           <li class="list-group-item bg-transparent border-secondary">
-            Configure secrets
-            <span class="d-block text-danger small"
-              >cp .env.example .env</span
-            >
-          </li>
-          <li class="list-group-item bg-transparent border-secondary">
-            Start C2 server
-            <span class="d-block text-danger small"
-              >python c2_server_alt.py</span
-            >
-          </li>
-          <li class="list-group-item bg-transparent border-secondary">
-            Encrypt files
-            <span class="d-block text-danger small"
-              >python main_v2.py -p "D:\testDir" -e</span
-            >
-          </li>
-          <li class="list-group-item bg-transparent border-secondary">
-            Decrypt files
-            <span class="d-block text-danger small"
-              >python main_v2.py -p "D:\testDir" -d</span
-            >
-          </li>
-          <li class="list-group-item bg-transparent border-secondary">
-            Use GUI
-            <span class="d-block text-danger small"
-              >Type <code>bitcoin</code> in the GUI to trigger decryption</span
-            >
+            Run the agent: <code>python main.py -p "&lt;target_dir&gt;" -e</code>
           </li>
         </ol>
+        <p>See the README for Docker/X11 and advanced usage.</p>
       </section>
 
-      <!-- Structure -->
-      <section id="structure" class="container py-5">
-        <h2 class="text-center fw-bold mb-5 accent-heading">
-          Project Structure
-        </h2>
-        <div class="glass mx-auto p-4" style="max-width: 740px">
-          <table class="table table-dark table-borderless align-middle mb-0">
-            <thead>
-              <tr>
-                <th>File / Folder</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>main_v2.py</td>
-                <td>Main ransomware logic</td>
-              </tr>
-              <tr>
-                <td>wannacry_gui.py</td>
-                <td>GUI simulation</td>
-              </tr>
-              <tr>
-                <td>c2_server_alt.py</td>
-                <td>Simulated C2 server</td>
-              </tr>
-              <tr>
-                <td>discover.py, modify.py</td>
-                <td>File operations</td>
-              </tr>
-              <tr>
-                <td>.env.example, requirements.txt</td>
-                <td>Config &amp; dependencies</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <!-- Disclaimer -->
+      <section id="disclaimer" class="container py-5">
+        <h2 class="text-center fw-bold mb-5 accent-heading">Disclaimer</h2>
+        <p>This project is for educational and research purposes only. Do not use in production or on unauthorized systems.</p>
       </section>
     </main>
 
