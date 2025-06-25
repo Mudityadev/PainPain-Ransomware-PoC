@@ -21,9 +21,26 @@ from wannacry_gui import WannaCryGUI
 # Load environment variables from .env
 load_dotenv()
 
-HARDCODED_KEY = os.environ.get('HARDCODED_KEY').encode()
+HARDCODED_KEY = os.environ.get('HARDCODED_KEY')
+if not HARDCODED_KEY:
+    print('[ERROR] HARDCODED_KEY is missing from environment.')
+    sys.exit(1)
+HARDCODED_KEY = HARDCODED_KEY.encode()
+
 SERVER_PUBLIC_RSA_KEY = os.environ.get('SERVER_PUBLIC_RSA_KEY')
+if not SERVER_PUBLIC_RSA_KEY:
+    print('[ERROR] SERVER_PUBLIC_RSA_KEY is missing from environment.')
+    sys.exit(1)
+else:
+    SERVER_PUBLIC_RSA_KEY = SERVER_PUBLIC_RSA_KEY.replace('\\n', '\n')
+
 SERVER_PRIVATE_RSA_KEY = os.environ.get('SERVER_PRIVATE_RSA_KEY')
+if not SERVER_PRIVATE_RSA_KEY:
+    print('[ERROR] SERVER_PRIVATE_RSA_KEY is missing from environment.')
+    sys.exit(1)
+else:
+    SERVER_PRIVATE_RSA_KEY = SERVER_PRIVATE_RSA_KEY.replace('\\n', '\n')
+
 extension = os.environ.get('extension', '.wasted')
 host = os.environ.get('host', '127.0.0.1')
 port = int(os.environ.get('port', 8080))
