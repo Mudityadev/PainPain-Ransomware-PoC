@@ -1,3 +1,5 @@
+
+
 # PainPain Ransomware POC
 
 **PainPain** is a Proof-of-Concept (PoC) ransomware project for educational and research purposes only. It demonstrates how modern ransomware can discover, encrypt, and exfiltrate files, and features a realistic, modern GUI inspired by infamous ransomware attacks.
@@ -12,6 +14,10 @@
 
 ---
 
+![PainPain Ransomware PoC Demo](web/assets/demo.png)
+<p align="center"><b>PainPain Ransomware PoC Demo</b></p>
+
+---
 ## Features
 - **File Discovery:** Recursively finds target files in a specified directory.
 - **AES Encryption/Decryption:** Securely encrypts and decrypts files with a hardcoded key.
