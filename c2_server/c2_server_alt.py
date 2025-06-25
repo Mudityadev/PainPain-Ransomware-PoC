@@ -12,30 +12,33 @@ import shutil
 import time
 from datetime import datetime
 import logging
+from rich.logging import RichHandler
 
 # -----------------
 # LOGGING SETUP
 # -----------------
 def setup_logging():
-    """Setup logging for C2 server activities"""
+    """Setup rich logging for C2 server activities"""
     if not os.path.exists('logs'):
         os.makedirs('logs')
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     log_filename = f'logs/c2_server_alt_{timestamp}.log'
+    FORMAT = "[%(asctime)s] %(levelname)-8s %(message)s"
     logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(levelname)s - %(message)s',
+        level="INFO",
+        format=FORMAT,
+        datefmt="%Y-%m-%d %H:%M:%S",
         handlers=[
-            logging.FileHandler(log_filename, encoding='utf-8'),
-            logging.StreamHandler()
+            RichHandler(rich_tracebacks=True, markup=True, show_time=False, show_level=True, show_path=False),
+            logging.FileHandler(log_filename, encoding='utf-8')
         ]
     )
-    logger = logging.getLogger(__name__)
-    logger.info("=" * 60)
-    logger.info("C2 SERVER (ALT, HTTP POST) STARTED")
-    logger.info("=" * 60)
-    logger.info(f"Log file: {log_filename}")
-    logger.info(f"Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    logger = logging.getLogger("rich")
+    logger.info("[bold green]========================================[/bold green]")
+    logger.info("[bold cyan]C2 SERVER (ALT, HTTP POST) STARTED[/bold cyan]")
+    logger.info("[bold green]========================================[/bold green]")
+    logger.info(f"Log file: [bold yellow]{log_filename}[/bold yellow]")
+    logger.info(f"Timestamp: [bold magenta]{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}[/bold magenta]")
     return logger
 
 # -----------------

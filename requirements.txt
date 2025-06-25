@@ -9,6 +9,6 @@ pytest-qt
 # tkinter (system package, e.g. python3-tk)
 pydantic-settings
 Flask
-
+rich
 # For GUI
 # (tkinter is included with standard Python installations) 
