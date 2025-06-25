@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PainPain - Ransomware PoC</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/favicon.ico" />
+  </head>
+  <body class="bg-gray-900 text-gray-100 font-sans">
+    <!-- Navbar -->
+    <header class="bg-gray-950 shadow-md">
+      <div
+        class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <div class="text-xl font-bold text-teal-400">🍏 PainPain</div>
+        <nav class="space-x-6 hidden md:block">
+          <a href="#features" class="hover:text-teal-400">Features</a>
+          <a href="#usage" class="hover:text-teal-400">Usage</a>
+          <a href="#structure" class="hover:text-teal-400">Structure</a>
+          <button id="openDisclaimer" class="hover:text-teal-400 focus:outline-none bg-transparent">Disclaimer</button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="text-center py-24 bg-gradient-to-br from-teal-900 via-gray-900 to-gray-800 fade-in">
+      <h1 class="text-4xl md:text-6xl font-extrabold mb-4">
+        PainPain Ransomware PoC
+      </h1>
+      <p class="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
+        A modern educational ransomware simulation with a realistic GUI,
+        encryption engine, and safe C2 server demo — for ethical research only.
+      </p>
+      <div class="flex flex-col items-center gap-4">
+        <a
+          href="#usage"
+          class="bg-teal-400 text-black px-6 py-3 rounded-lg font-semibold hover:bg-teal-300 transition cta"
+        >
+          🚀 Get Started
+        </a>
+        <div class="mt-6 text-gray-400 text-sm">
+          <span id="countdown" class="font-mono text-teal-300"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="h-1 bg-gradient-to-r from-teal-400 via-transparent to-teal-400 opacity-30 my-8"></div>
+
+    <!-- Features -->
+    <section id="features" class="py-20 px-6 bg-gradient-to-br from-gray-800 to-gray-900 fade-in">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl font-bold text-teal-400 mb-8">🛠 Features</h2>
+        <div class="grid md:grid-cols-2 gap-6 text-gray-200">
+          <div class="bg-gray-900 p-6 rounded-xl shadow-md transform transition duration-500 hover:scale-105">
+            <h3 class="font-semibold mb-2">🔍 File Discovery</h3>
+            <p>Scans directories recursively for target files.</p>
+          </div>
+          <div class="bg-gray-900 p-6 rounded-xl shadow-md transform transition duration-500 hover:scale-105">
+            <h3 class="font-semibold mb-2">🔐 AES Encryption</h3>
+            <p>Encrypts files securely using a hardcoded key.</p>
+          </div>
+          <div class="bg-gray-900 p-6 rounded-xl shadow-md transform transition duration-500 hover:scale-105">
+            <h3 class="font-semibold mb-2">🧠 C2 Server</h3>
+            <p>Simulates exfiltration of file and system data.</p>
+          </div>
+          <div class="bg-gray-900 p-6 rounded-xl shadow-md transform transition duration-500 hover:scale-105">
+            <h3 class="font-semibold mb-2">🖥 Modern GUI</h3>
+            <p>Features a realistic ransomware interface.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="h-1 bg-gradient-to-r from-teal-400 via-transparent to-teal-400 opacity-30 my-8"></div>
+
+    <!-- Usage -->
+    <section id="usage" class="py-20 px-6 max-w-4xl mx-auto fade-in">
+      <h2 class="text-3xl font-bold text-teal-400 mb-6">📦 Usage</h2>
+      <ol class="list-decimal list-inside space-y-3 text-gray-300">
+        <li><code>pip install -r requirements.txt</code></li>
+        <li><code>cp .env.example .env</code> and configure secrets</li>
+        <li><code>python c2_server_alt.py</code></li>
+        <li><code>python main_v2.py -p "D:\\testDir" -e</code> to encrypt</li>
+        <li><code>python main_v2.py -p "D:\\testDir" -d</code> to decrypt</li>
+        <li>Use GUI and type <code>bitcoin</code> to trigger decryption</li>
+      </ol>
+    </section>
+
+    <!-- Divider -->
+    <div class="h-1 bg-gradient-to-r from-teal-400 via-transparent to-teal-400 opacity-30 my-8"></div>
+
+    <!-- Structure -->
+    <section id="structure" class="py-20 px-6 bg-gradient-to-br from-gray-800 to-gray-900 fade-in">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-teal-400 mb-6">📁 Project Structure</h2>
+        <ul class="list-disc list-inside text-gray-300 space-y-2">
+          <li><code>main_v2.py</code> — Core ransomware logic</li>
+          <li><code>wannacry_gui.py</code> — GUI simulation</li>
+          <li><code>c2_server_alt.py</code> — Simulated C2 server</li>
+          <li><code>discover.py</code> & <code>modify.py</code> — File operations</li>
+          <li><code>.env.example</code> & <code>requirements.txt</code></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="h-1 bg-gradient-to-r from-teal-400 via-transparent to-teal-400 opacity-30 my-8"></div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-950 py-8 text-center text-sm text-gray-500">
+      <p>© 2025 PainPain – Built for ethical hacking & research.</p>
+    </footer>
+
+    <!-- Disclaimer Modal -->
+    <div id="disclaimerModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden">
+      <div class="bg-gray-900 rounded-xl p-8 max-w-lg w-full shadow-2xl relative animate-fadeIn">
+        <button id="closeDisclaimer" class="absolute top-3 right-3 text-gray-400 hover:text-teal-400 text-2xl">&times;</button>
+        <h2 class="text-2xl font-bold text-teal-400 mb-4">⚠️ Disclaimer</h2>
+        <ul class="list-disc list-inside space-y-2 text-gray-300 mb-4">
+          <li>Strictly for ethical and educational use only.</li>
+          <li>Do not deploy on production or live systems.</li>
+          <li>Authors are not liable for any misuse or damage.</li>
+          <li>Always comply with applicable laws and policies.</li>
+        </ul>
+        <div class="text-right">
+          <button id="closeDisclaimer2" class="bg-teal-400 text-black px-4 py-2 rounded-lg font-semibold hover:bg-teal-300 transition">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="/web/main.js"></script>
+  </body>
+</html>
