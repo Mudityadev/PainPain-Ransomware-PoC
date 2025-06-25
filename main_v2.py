@@ -14,9 +14,9 @@ from datetime import datetime
 import time
 from dotenv import load_dotenv
 
-import discover
-import modify
-from wannacry_gui import WannaCryGUI
+from ransomware import discover
+from ransomware import modify
+from ransomware.gui_main import WannaCryGUI
 
 # Load environment variables from .env
 load_dotenv()

