@@ -898,3 +898,5 @@
 2025-06-25 12:38:47,702 - INFO - ==================================================
 2025-06-25 12:38:49,200 - INFO - Pre-encryption connection - files copied, waiting for encryption to complete
 2025-06-25 12:38:49,201 - INFO - Connection closed with ('127.0.0.1', 49792)
+2025-06-25 13:02:15,793 - INFO - C2 Server stopped
+2025-06-25 13:02:15,822 - INFO - All connections closed

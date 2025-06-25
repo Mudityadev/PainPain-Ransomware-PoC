@@ -27,12 +27,20 @@
 pip install -r requirements.txt
 ```
 
-### 2. Start the C2 Server
+### 2. Set Up Environment Variables
+- Copy `.env.example` to `.env`:
+  ```
+  cp .env.example .env
+  ```
+- Fill in your own secrets, keys, and configuration values in `.env`.
+- **Never commit your `.env` file to version control!**
+
+### 3. Start the C2 Server
 ```
 python c2_server_alt.py
 ```
 
-### 3. Run the Ransomware PoC
+### 4. Run the Ransomware PoC
 - **Encrypt files:**
   ```
   python main_v2.py -p "D:\testDir" -e
@@ -42,7 +50,7 @@ python c2_server_alt.py
   python main_v2.py -p "D:\testDir" -d
   ```
 
-### 4. GUI Interaction
+### 5. GUI Interaction
 - The GUI will display a ransom note, timer, and payment instructions.
 - Enter the code `bitcoin` and click **Decrypt Files** to trigger decryption (for demo/testing).
 
@@ -56,6 +64,7 @@ python c2_server_alt.py
 - `modify.py` — File encryption/decryption logic
 - `context.txt` — Project context and structure
 - `requirements.txt` — Python dependencies
+- `.env.example` — Example environment variable file (copy to `.env` and fill in your own values)
 
 ---
 

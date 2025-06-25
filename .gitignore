@@ -1,0 +1,11 @@
+# Python
+__pycache__/
+*.pyc
+
+# Environment
+.env
+
+# Logs and data
+logs/
+c2_data/
+darkSecureFolder/ 

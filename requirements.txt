@@ -1,4 +1,5 @@
 pycryptodome
+python-dotenv
 
 # For GUI
 # (tkinter is included with standard Python installations) 
