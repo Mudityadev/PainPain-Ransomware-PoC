@@ -35,11 +35,11 @@ python c2_server_alt.py
 ### 3. Run the Ransomware PoC
 - **Encrypt files:**
   ```
-  python main_v2.py -p "D:\AI-Agent\Ransomware-PoC\testDir" -e
+  python main_v2.py -p "D:\testDir" -e
   ```
 - **Decrypt files:**
   ```
-  python main_v2.py -p "D:\AI-Agent\Ransomware-PoC\testDir" -d
+  python main_v2.py -p "D:\testDir" -d
   ```
 
 ### 4. GUI Interaction
