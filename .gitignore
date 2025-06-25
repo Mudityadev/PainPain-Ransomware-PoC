@@ -11,4 +11,7 @@ c2_data/
 darkSecureFolder/
 
 # Server
-c2_server/darkSecureFolder/ 
+c2_server/darkSecureFolder/
+
+# Tests
+tests/ 

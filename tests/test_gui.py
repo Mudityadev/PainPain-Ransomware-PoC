@@ -16,4 +16,3 @@ def test_gui_launch_real(qtbot):
 def test_gui_launch_dummy():
     # Dummy test for GUI launch
     assert True
-
