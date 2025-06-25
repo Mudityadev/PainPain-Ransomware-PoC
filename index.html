@@ -3,137 +3,429 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PainPain - Ransomware PoC</title>
+    <title>PainPain – Ransomware PoC</title>
+
+    <!-- Bootstrap 5 -->
     <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
     <link rel="icon" href="/favicon.ico" />
+
+    <!-- =====  Dark-Apple palette  ===== -->
+    <style>
+      :root {
+        /* core tones */
+        --bg-main: #0d0d0d;
+        --bg-elevated: #1a1a1a;
+        --bg-glass: rgba(255, 255, 255, 0.05);
+        --border-glass: rgba(255, 255, 255, 0.08);
+
+        /* accent red – use one shade everywhere */
+        --accent: #ff453a;
+
+        --txt-primary: #f5f6fa;
+        --txt-muted: #c9c9d1;
+      }
+
+      /* --------  global  -------- */
+      body {
+        background: var(--bg-main);
+        color: var(--txt-primary);
+        font-family: "SF Pro Display", system-ui, -apple-system, Segoe UI,
+          Roboto, Helvetica Neue, Arial, sans-serif;
+      }
+
+      a {
+        color: var(--accent);
+      }
+      a:hover {
+        color: #ff7067;
+      }
+
+      /* --------  navbar  -------- */
+      .navbar-dark {
+        background: #000; /* flat black like apple.com */
+        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
+      }
+
+      /* --------  hero  -------- */
+      .hero-box {
+        background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
+        border-radius: 2rem;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+      }
+
+      /* --------  reusable glass card  -------- */
+      .glass {
+        background: var(--bg-glass);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--border-glass);
+        border-radius: 1.5rem;
+      }
+
+      /* --------  accent button  -------- */
+      .accent-btn {
+        background: var(--accent);
+        border: none;
+        color: #fff !important;
+        border-radius: 2rem;
+        font-weight: 600;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+      .accent-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(255, 69, 58, 0.45);
+      }
+
+      /* --------  gradient heading  -------- */
+      .accent-heading {
+        background: linear-gradient(90deg, #ff8a7f 0%, var(--accent) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* --------  footer  -------- */
+      .dark-footer {
+        background: #000;
+        border-top: 1px solid #222;
+        color: var(--txt-muted);
+      }
+
+      /* --------  tables & modal  -------- */
+      .table-dark {
+        --bs-table-bg: var(--bg-elevated);
+        --bs-table-striped-bg: #202020;
+        --bs-table-hover-bg: #242424;
+        color: var(--txt-primary);
+        border-color: #333;
+      }
+
+      .modal-content {
+        background: var(--bg-elevated);
+        color: var(--txt-primary);
+        border-radius: 1.5rem;
+        border: 1px solid #333;
+      }
+
+      /* misc */
+      .card-title {
+        color: var(--accent);
+        font-weight: 600;
+      }
+    </style>
   </head>
-  <body class="bg-gray-900 text-gray-100 font-sans">
-    <!-- Navbar -->
-    <header class="bg-gray-950 shadow-md">
-      <div
-        class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center"
-      >
-        <div class="text-xl font-bold text-teal-400">🍏 PainPain</div>
-        <nav class="space-x-6 hidden md:block">
-          <a href="#features" class="hover:text-teal-400">Features</a>
-          <a href="#usage" class="hover:text-teal-400">Usage</a>
-          <a href="#structure" class="hover:text-teal-400">Structure</a>
-          <button id="openDisclaimer" class="hover:text-teal-400 focus:outline-none bg-transparent">Disclaimer</button>
-        </nav>
-      </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section id="hero" class="text-center py-24 bg-gradient-to-br from-teal-900 via-gray-900 to-gray-800 fade-in">
-      <h1 class="text-4xl md:text-6xl font-extrabold mb-4">
-        PainPain Ransomware PoC
-      </h1>
-      <p class="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-        A modern educational ransomware simulation with a realistic GUI,
-        encryption engine, and safe C2 server demo — for ethical research only.
-      </p>
-      <div class="flex flex-col items-center gap-4">
-        <a
-          href="#usage"
-          class="bg-teal-400 text-black px-6 py-3 rounded-lg font-semibold hover:bg-teal-300 transition cta"
+  <body class="d-flex flex-column min-vh-100">
+    <!-- ••• Top disclaimer banner ••• -->
+    <div
+      id="topDisclaimer"
+      class="alert alert-danger d-flex align-items-center justify-content-center mb-0 rounded-0 py-2 px-3 text-center"
+      role="alert"
+      style="
+        z-index: 1050;
+        background: var(--accent);
+        color: #1a1a1a;
+        font-weight: 600;
+      "
+    >
+      <span class="me-2 fs-5"></span>
+      <span>
+        This project is for <b>educational and ethical research</b> only. Do
+        not use on production systems. Authors are not liable for misuse.
+      </span>
+      <button
+        id="closeTopDisclaimer"
+        type="button"
+        class="btn-close ms-3"
+        aria-label="Close"
+      ></button>
+    </div>
+
+    <!-- ••• Navbar ••• -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+      <div class="container">
+        <a class="navbar-brand fw-bold fs-3" href="#">PainPain</a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
-          🚀 Get Started
-        </a>
-        <div class="mt-6 text-gray-400 text-sm">
-          <span id="countdown" class="font-mono text-teal-300"></span>
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="#features">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#usage">Usage</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#structure">Structure</a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#disclaimerModal"
+                >Disclaimer</a
+              >
+            </li>
+          </ul>
         </div>
       </div>
-    </section>
+    </nav>
 
-    <!-- Divider -->
-    <div class="h-1 bg-gradient-to-r from-teal-400 via-transparent to-teal-400 opacity-30 my-8"></div>
+    <!-- ••• Page content ••• -->
+    <main class="flex-shrink-0">
+      <!-- Hero -->
+      <section id="hero" class="container py-5 text-center">
+        <div class="hero-box mx-auto p-5" style="max-width: 640px">
+          <h1 class="display-4 fw-bold mb-3 accent-heading">
+            PainPain Ransomware PoC
+          </h1>
+          <p class="lead mb-4">
+            A modern, safe ransomware simulation for research and education.
+            Realistic GUI, encryption and C2 demo. 🔒
+          </p>
+          <a href="#usage" class="btn btn-lg accent-btn px-5 py-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:0.5em;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"/>
+            </svg>
+            Download
+          </a>
+        </div>
+      </section>
 
-    <!-- Features -->
-    <section id="features" class="py-20 px-6 bg-gradient-to-br from-gray-800 to-gray-900 fade-in">
-      <div class="max-w-5xl mx-auto">
-        <h2 class="text-3xl font-bold text-teal-400 mb-8">🛠 Features</h2>
-        <div class="grid md:grid-cols-2 gap-6 text-gray-200">
-          <div class="bg-gray-900 p-6 rounded-xl shadow-md transform transition duration-500 hover:scale-105">
-            <h3 class="font-semibold mb-2">🔍 File Discovery</h3>
-            <p>Scans directories recursively for target files.</p>
+      <!-- Features -->
+      <section id="features" class="container py-5">
+        <h2 class="text-center fw-bold mb-5 accent-heading">Features</h2>
+        <div class="row g-4 justify-content-center">
+          <!-- single card -->
+          <div class="col-12 col-md-6 col-lg-3">
+            <div class="card glass text-center h-100 border-0">
+              <div class="card-body">
+                <div class="fs-1 mb-2">🔍</div>
+                <h5 class="card-title">File Discovery</h5>
+                <p class="card-text">
+                  Recursively scans directories for target files.
+                </p>
+              </div>
+            </div>
           </div>
-          <div class="bg-gray-900 p-6 rounded-xl shadow-md transform transition duration-500 hover:scale-105">
-            <h3 class="font-semibold mb-2">🔐 AES Encryption</h3>
-            <p>Encrypts files securely using a hardcoded key.</p>
+
+          <!-- repeat for each feature -->
+          <div class="col-12 col-md-6 col-lg-3">
+            <div class="card glass text-center h-100 border-0">
+              <div class="card-body">
+                <div class="fs-1 mb-2">🔐</div>
+                <h5 class="card-title">AES Encryption</h5>
+                <p class="card-text">
+                  Encrypts files securely with a hard-coded key.
+                </p>
+              </div>
+            </div>
           </div>
-          <div class="bg-gray-900 p-6 rounded-xl shadow-md transform transition duration-500 hover:scale-105">
-            <h3 class="font-semibold mb-2">🧠 C2 Server</h3>
-            <p>Simulates exfiltration of file and system data.</p>
+
+          <div class="col-12 col-md-6 col-lg-3">
+            <div class="card glass text-center h-100 border-0">
+              <div class="card-body">
+                <div class="fs-1 mb-2">🧠</div>
+                <h5 class="card-title">C2 Server</h5>
+                <p class="card-text">
+                  Simulates exfiltration of file and system data.
+                </p>
+              </div>
+            </div>
           </div>
-          <div class="bg-gray-900 p-6 rounded-xl shadow-md transform transition duration-500 hover:scale-105">
-            <h3 class="font-semibold mb-2">🖥 Modern GUI</h3>
-            <p>Features a realistic ransomware interface.</p>
+
+          <div class="col-12 col-md-6 col-lg-3">
+            <div class="card glass text-center h-100 border-0">
+              <div class="card-body">
+                <div class="fs-1 mb-2">🖥️</div>
+                <h5 class="card-title">Modern GUI</h5>
+                <p class="card-text">
+                  Features a realistic ransomware interface.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
+
+      <!-- Usage -->
+      <section id="usage" class="container py-5">
+        <h2 class="text-center fw-bold mb-5 accent-heading">Usage</h2>
+        <ol
+          class="list-group list-group-numbered mx-auto"
+          style="max-width: 620px"
+        >
+          <li class="list-group-item bg-transparent border-secondary">
+            Install requirements
+            <span class="d-block text-danger small"
+              >pip install -r requirements.txt</span
+            >
+          </li>
+          <li class="list-group-item bg-transparent border-secondary">
+            Configure secrets
+            <span class="d-block text-danger small"
+              >cp .env.example .env</span
+            >
+          </li>
+          <li class="list-group-item bg-transparent border-secondary">
+            Start C2 server
+            <span class="d-block text-danger small"
+              >python c2_server_alt.py</span
+            >
+          </li>
+          <li class="list-group-item bg-transparent border-secondary">
+            Encrypt files
+            <span class="d-block text-danger small"
+              >python main_v2.py -p "D:\testDir" -e</span
+            >
+          </li>
+          <li class="list-group-item bg-transparent border-secondary">
+            Decrypt files
+            <span class="d-block text-danger small"
+              >python main_v2.py -p "D:\testDir" -d</span
+            >
+          </li>
+          <li class="list-group-item bg-transparent border-secondary">
+            Use GUI
+            <span class="d-block text-danger small"
+              >Type <code>bitcoin</code> in the GUI to trigger decryption</span
+            >
+          </li>
+        </ol>
+      </section>
+
+      <!-- Structure -->
+      <section id="structure" class="container py-5">
+        <h2 class="text-center fw-bold mb-5 accent-heading">
+          Project Structure
+        </h2>
+        <div class="glass mx-auto p-4" style="max-width: 740px">
+          <table class="table table-dark table-borderless align-middle mb-0">
+            <thead>
+              <tr>
+                <th>File / Folder</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>main_v2.py</td>
+                <td>Main ransomware logic</td>
+              </tr>
+              <tr>
+                <td>wannacry_gui.py</td>
+                <td>GUI simulation</td>
+              </tr>
+              <tr>
+                <td>c2_server_alt.py</td>
+                <td>Simulated C2 server</td>
+              </tr>
+              <tr>
+                <td>discover.py, modify.py</td>
+                <td>File operations</td>
+              </tr>
+              <tr>
+                <td>.env.example, requirements.txt</td>
+                <td>Config &amp; dependencies</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <!-- ••• Footer ••• -->
+    <footer class="dark-footer text-center py-4 mt-auto">
+      <div class="container">
+        <div class="mb-2">
+          <a
+            href="https://github.com/"
+            target="_blank"
+            class="me-3"
+            aria-label="GitHub"
+            style="color: var(--txt-primary)"
+            ><svg
+              width="24"
+              height="24"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.01-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.78 2.73 1.27 3.4.97.11-.75.41-1.27.74-1.56-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 012.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.7.42.36.79 1.09.79 2.2 0 1.59-.01 2.87-.01 3.26 0 .31.21.68.8.56C20.71 21.39 24 17.08 24 12c0-6.27-5.23-11.5-12-11.5z"
+              />
+            </svg>
+          </a>
+          <span
+            class="badge rounded-pill"
+            style="
+              background: var(--accent);
+              color: #111;
+              font-weight: 600;
+            "
+            >Disclaimer</span
+          >
+        </div>
+        © 2025 PainPain – Built for ethical hacking &amp; research.
       </div>
-    </section>
-
-    <!-- Divider -->
-    <div class="h-1 bg-gradient-to-r from-teal-400 via-transparent to-teal-400 opacity-30 my-8"></div>
-
-    <!-- Usage -->
-    <section id="usage" class="py-20 px-6 max-w-4xl mx-auto fade-in">
-      <h2 class="text-3xl font-bold text-teal-400 mb-6">📦 Usage</h2>
-      <ol class="list-decimal list-inside space-y-3 text-gray-300">
-        <li><code>pip install -r requirements.txt</code></li>
-        <li><code>cp .env.example .env</code> and configure secrets</li>
-        <li><code>python c2_server_alt.py</code></li>
-        <li><code>python main_v2.py -p "D:\\testDir" -e</code> to encrypt</li>
-        <li><code>python main_v2.py -p "D:\\testDir" -d</code> to decrypt</li>
-        <li>Use GUI and type <code>bitcoin</code> to trigger decryption</li>
-      </ol>
-    </section>
-
-    <!-- Divider -->
-    <div class="h-1 bg-gradient-to-r from-teal-400 via-transparent to-teal-400 opacity-30 my-8"></div>
-
-    <!-- Structure -->
-    <section id="structure" class="py-20 px-6 bg-gradient-to-br from-gray-800 to-gray-900 fade-in">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="text-3xl font-bold text-teal-400 mb-6">📁 Project Structure</h2>
-        <ul class="list-disc list-inside text-gray-300 space-y-2">
-          <li><code>main_v2.py</code> — Core ransomware logic</li>
-          <li><code>wannacry_gui.py</code> — GUI simulation</li>
-          <li><code>c2_server_alt.py</code> — Simulated C2 server</li>
-          <li><code>discover.py</code> & <code>modify.py</code> — File operations</li>
-          <li><code>.env.example</code> & <code>requirements.txt</code></li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- Divider -->
-    <div class="h-1 bg-gradient-to-r from-teal-400 via-transparent to-teal-400 opacity-30 my-8"></div>
-
-    <!-- Footer -->
-    <footer class="bg-gray-950 py-8 text-center text-sm text-gray-500">
-      <p>© 2025 PainPain – Built for ethical hacking & research.</p>
     </footer>
 
-    <!-- Disclaimer Modal -->
-    <div id="disclaimerModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden">
-      <div class="bg-gray-900 rounded-xl p-8 max-w-lg w-full shadow-2xl relative animate-fadeIn">
-        <button id="closeDisclaimer" class="absolute top-3 right-3 text-gray-400 hover:text-teal-400 text-2xl">&times;</button>
-        <h2 class="text-2xl font-bold text-teal-400 mb-4">⚠️ Disclaimer</h2>
-        <ul class="list-disc list-inside space-y-2 text-gray-300 mb-4">
-          <li>Strictly for ethical and educational use only.</li>
-          <li>Do not deploy on production or live systems.</li>
-          <li>Authors are not liable for any misuse or damage.</li>
-          <li>Always comply with applicable laws and policies.</li>
-        </ul>
-        <div class="text-right">
-          <button id="closeDisclaimer2" class="bg-teal-400 text-black px-4 py-2 rounded-lg font-semibold hover:bg-teal-300 transition">Close</button>
+    <!-- ••• Disclaimer Modal ••• -->
+    <div
+      class="modal fade"
+      id="disclaimerModal"
+      tabindex="-1"
+      aria-labelledby="disclaimerModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header border-0">
+            <h5 class="modal-title accent-heading" id="disclaimerModalLabel">
+              ⚠️ Disclaimer
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <ul class="list-unstyled mb-0">
+              <li>Strictly for ethical and educational use only.</li>
+              <li>Do not deploy on production or live systems.</li>
+              <li>Authors are not liable for any misuse or damage.</li>
+              <li>Always comply with applicable laws and policies.</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
 
-    <script src="/web/main.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      /* close top banner */
+      document.getElementById("closeTopDisclaimer").onclick = () => {
+        const banner = document.getElementById("topDisclaimer");
+        banner.style.transition = "opacity 0.4s";
+        banner.style.opacity = 0;
+        setTimeout(() => (banner.style.display = "none"), 400);
+      };
+    </script>
   </body>
 </html>
