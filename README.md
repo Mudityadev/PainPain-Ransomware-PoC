@@ -1,6 +1,9 @@
-# PainPain Ransomware PoC Documentation
+# PainPain Ransomware PoC
 
 ## 1. Overview
+
+![Demo PainPain Ransomware PoC](web/assets/demo.png)
+
 
 **PainPain** is a modular, educational Proof-of-Concept (PoC) ransomware project. It demonstrates file discovery, encryption, exfiltration, and a realistic GUI, all for research and ethical hacking education. **Do not use for malicious purposes.**
 
