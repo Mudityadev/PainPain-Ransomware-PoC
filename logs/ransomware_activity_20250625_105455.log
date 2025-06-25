@@ -1,0 +1,39 @@
+2025-06-25 10:54:55,852 - INFO - ============================================================
+2025-06-25 10:54:55,853 - INFO - RANSOMWARE PoC ACTIVITY LOG STARTED
+2025-06-25 10:54:55,853 - INFO - ============================================================
+2025-06-25 10:54:55,853 - INFO - Log file: logs/ransomware_activity_20250625_105455.log
+2025-06-25 10:54:55,854 - INFO - Timestamp: 2025-06-25 10:54:55
+2025-06-25 10:54:56,009 - INFO - Platform: Windows 11
+2025-06-25 10:54:56,010 - INFO - Python version: 3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]
+2025-06-25 10:54:56,010 - INFO - User: mudit
+2025-06-25 10:54:56,011 - INFO - Hostname: Mudityadev
+2025-06-25 10:54:56,013 - INFO - ============================================================
+2025-06-25 10:54:56,014 - INFO - Starting main function
+2025-06-25 10:54:56,015 - INFO - Parsing command line arguments
+2025-06-25 10:54:56,015 - INFO - Setting up argument parser
+2025-06-25 10:54:56,016 - INFO - Parsing command line arguments
+2025-06-25 10:54:56,017 - INFO - Arguments parsed - Path: D:\AI-Agent\Ransomware-PoC\testDir, Encrypt: False, Decrypt: True
+2025-06-25 10:54:56,018 - INFO - Operation mode: DECRYPT
+2025-06-25 10:54:56,018 - INFO - Target path: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 10:54:56,018 - INFO - Using specified path: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 10:54:56,019 - INFO - Initializing RSA encryption for AES key
+2025-06-25 10:54:56,102 - INFO - AES key encrypted with RSA public key
+2025-06-25 10:54:56,103 - INFO - Encrypted key (base64): OpNMe61LaYMpgG5oye+km6D3RgsEVdsiP9SahxCQeN9FNEtDFPRiOrEZAQOVHbsPeSeDY2VTry2FGuUGF6M/+pNY7Jv6Ra85wSe+sMpbe+1gfXWvF4eP8kAP33mobNwyQzOdCZ6EBZU1oKVRYnc3DiOc1K1Wuf13Uz0HmMidZd0Uh09+MztCqpn2iYl5tMKg0jx0XEI+X2wSbTbih1Dhr3ud1ZFdJkkLeXkFOrvWoyQY4tpMSOo7zr5EXVkJzXs3ECXj8NExtszHNt8xWex0bs7ppJidcyD00rTUg9f0Qd+kdxecoHtf7/p0bgvOX+oBUgZWpNqS4F8R4eX6x6FhOg==
+2025-06-25 10:54:56,104 - INFO - Decrypting AES key using RSA private key
+2025-06-25 10:54:56,183 - INFO - AES key decrypted successfully
+2025-06-25 10:54:56,184 - INFO - Creating AES cipher with CTR mode
+2025-06-25 10:54:56,195 - INFO - Starting file discovery and processing
+2025-06-25 10:54:56,196 - INFO - Processing directory: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 10:54:56,198 - INFO - Discovered 3 files in D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 10:54:56,199 - INFO - Decrypting file: D:\AI-Agent\Ransomware-PoC\testDir\testPasswords.txt.wasted
+2025-06-25 10:54:56,203 - INFO - Successfully decrypted: D:\AI-Agent\Ransomware-PoC\testDir\testPasswords.txt.wasted -> D:\AI-Agent\Ransomware-PoC\testDir\testPasswords.txt
+2025-06-25 10:54:56,204 - INFO - Decrypting file: D:\AI-Agent\Ransomware-PoC\testDir\importantFile\fdsggg.txt.wasted
+2025-06-25 10:54:56,207 - INFO - Successfully decrypted: D:\AI-Agent\Ransomware-PoC\testDir\importantFile\fdsggg.txt.wasted -> D:\AI-Agent\Ransomware-PoC\testDir\importantFile\fdsggg.txt
+2025-06-25 10:54:56,207 - INFO - Decrypting file: D:\AI-Agent\Ransomware-PoC\testDir\importantFile\New Text Document - Copy.txt.wasted
+2025-06-25 10:54:56,210 - INFO - Successfully decrypted: D:\AI-Agent\Ransomware-PoC\testDir\importantFile\New Text Document - Copy.txt.wasted -> D:\AI-Agent\Ransomware-PoC\testDir\importantFile\New Text Document - Copy.txt
+2025-06-25 10:54:56,211 - INFO - Total files processed: 3
+2025-06-25 10:54:56,212 - INFO - Wiping encryption key from memory
+2025-06-25 10:54:56,213 - INFO - Key wipe completed
+2025-06-25 10:54:56,214 - INFO - ============================================================
+2025-06-25 10:54:56,215 - INFO - RANSOMWARE PoC ACTIVITY LOG ENDED
+2025-06-25 10:54:56,215 - INFO - ============================================================

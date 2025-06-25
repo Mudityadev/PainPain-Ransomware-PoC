@@ -1,0 +1,32 @@
+2025-06-25 10:49:19,259 - INFO - ============================================================
+2025-06-25 10:49:19,260 - INFO - RANSOMWARE PoC ACTIVITY LOG STARTED
+2025-06-25 10:49:19,261 - INFO - ============================================================
+2025-06-25 10:49:19,263 - INFO - Log file: logs/ransomware_activity_20250625_104919.log
+2025-06-25 10:49:19,265 - INFO - Timestamp: 2025-06-25 10:49:19
+2025-06-25 10:49:19,745 - INFO - Platform: Windows 11
+2025-06-25 10:49:19,746 - INFO - Python version: 3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]
+2025-06-25 10:49:19,747 - INFO - User: mudit
+2025-06-25 10:49:19,748 - INFO - Hostname: Mudityadev
+2025-06-25 10:49:19,749 - INFO - ============================================================
+2025-06-25 10:49:19,749 - INFO - Starting main function
+2025-06-25 10:49:19,750 - INFO - Parsing command line arguments
+2025-06-25 10:49:19,750 - INFO - Setting up argument parser
+2025-06-25 10:49:19,752 - INFO - Parsing command line arguments
+2025-06-25 10:49:19,753 - INFO - Arguments parsed - Path: D:\AI-Agent\Ransomware-PoC\testDir, Encrypt: True, Decrypt: False
+2025-06-25 10:49:19,754 - INFO - Operation mode: ENCRYPT
+2025-06-25 10:49:19,754 - INFO - Target path: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 10:49:19,754 - INFO - Using specified path: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 10:49:19,755 - INFO - Initializing RSA encryption for AES key
+2025-06-25 10:49:23,521 - INFO - AES key encrypted with RSA public key
+2025-06-25 10:49:23,522 - INFO - Encrypted key (base64): Cod2AGC/E5tmxU81khWrha3p60nDqVi+R35+DOPFlGD7mRS5DgwwjvK8MSnXBfFA88QJkO6s9cB4A6FYlMESy0kgGXTt5EuVA2GXWi7xMmSQDabhaH+kBKKpVs61n0HUNmX+3+blQIPzGSMLlXt4G6GiLiZDDxs+Ml9EecgVg9UC4SoMy+0EQC/crwTWFA7wnTN2jOTzFg8/1UtwOb1vMgmBFmkxL+G0HCI3hFXAr98i1Hewkij29YB4DodKOpSIEpJ0yZEkHLpwfOR4Bq1YOuSMmxddVXY5FhuKNT21An7pZulm2z2MsF+h5Lao8istiwF/em4SLGeLJZuRzYOxcg==
+2025-06-25 10:49:23,523 - INFO - Using hardcoded AES key for encryption
+2025-06-25 10:49:23,524 - INFO - Creating AES cipher with CTR mode
+2025-06-25 10:49:23,987 - INFO - Starting file discovery and processing
+2025-06-25 10:49:23,988 - INFO - Processing directory: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 10:49:23,989 - ERROR - Error processing directory D:\AI-Agent\Ransomware-PoC\testDir: object of type 'generator' has no len()
+2025-06-25 10:49:23,990 - INFO - Total files processed: 0
+2025-06-25 10:49:23,991 - INFO - Starting key exfiltration and GUI launch
+2025-06-25 10:49:23,992 - INFO - Attempting to connect to C2 server: 127.0.0.1:443
+2025-06-25 10:49:26,037 - WARNING - Failed to connect to C2 server: [WinError 10061] No connection could be made because the target machine actively refused it
+2025-06-25 10:49:26,038 - INFO - Launching GUI window (offline mode)
+2025-06-25 10:49:39,954 - INFO - Received keyboard interrupt, exiting

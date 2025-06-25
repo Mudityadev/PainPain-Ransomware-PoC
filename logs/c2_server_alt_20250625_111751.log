@@ -1,0 +1,53 @@
+2025-06-25 11:17:51,501 - INFO - ============================================================
+2025-06-25 11:17:51,502 - INFO - C2 SERVER (ALT) STARTED
+2025-06-25 11:17:51,503 - INFO - ============================================================
+2025-06-25 11:17:51,503 - INFO - Log file: logs/c2_server_alt_20250625_111751.log
+2025-06-25 11:17:51,503 - INFO - Timestamp: 2025-06-25 11:17:51
+2025-06-25 11:17:51,507 - INFO - C2 Server listening on 127.0.0.1:8080
+2025-06-25 11:17:51,508 - INFO - Dark secure folder: darkSecureFolder
+2025-06-25 11:17:51,508 - INFO - Waiting for ransomware connections...
+2025-06-25 11:17:51,509 - INFO - Press Ctrl+C to stop the server
+2025-06-25 11:17:51,513 - INFO - ============================================================
+2025-06-25 11:17:51,514 - INFO - C2 SERVER STATUS
+2025-06-25 11:17:51,514 - INFO - ============================================================
+2025-06-25 11:17:51,515 - INFO - Total infected machines: 0
+2025-06-25 11:17:51,515 - INFO - Dark secure folder: darkSecureFolder
+2025-06-25 11:17:51,515 - INFO - No infected machines yet
+2025-06-25 11:17:51,515 - INFO - ============================================================
+2025-06-25 11:18:00,054 - INFO - New connection from ('127.0.0.1', 59279)
+2025-06-25 11:18:00,075 - INFO - Received data from ('127.0.0.1', 59279): 2166 bytes
+2025-06-25 11:18:00,075 - INFO - ========================================
+2025-06-25 11:18:00,075 - INFO - INFECTED MACHINE DATA RECEIVED
+2025-06-25 11:18:00,076 - INFO - ========================================
+2025-06-25 11:18:00,076 - INFO - Machine ID: 192.168.217.136_Mudityadev_mudit
+2025-06-25 11:18:00,076 - INFO - IP Address: 192.168.217.136
+2025-06-25 11:18:00,076 - INFO - Operating System: Windows
+2025-06-25 11:18:00,076 - INFO - Username: mudit
+2025-06-25 11:18:00,077 - INFO - Hostname: Mudityadev
+2025-06-25 11:18:00,077 - INFO - Timestamp: 2025-06-25T11:18:00.075511
+2025-06-25 11:18:00,078 - INFO - Private Key Length: 1674 chars
+2025-06-25 11:18:00,078 - INFO - Public Key Length: 450 chars
+2025-06-25 11:18:00,079 - INFO - ========================================
+2025-06-25 11:18:00,083 - INFO - Machine data saved to: c2_data/192.168.217.136_Mudityadev_mudit_20250625_111800.json
+2025-06-25 11:18:00,084 - INFO - Started file exfiltration thread for path: C:\Users\mudit\test_ransomware
+2025-06-25 11:18:00,085 - INFO - Connection closed with ('127.0.0.1', 59279)
+2025-06-25 11:18:00,085 - INFO - Created machine folder: darkSecureFolder\192.168.217.136_Mudityadev_mudit
+2025-06-25 11:18:00,086 - WARNING - Target path does not exist: C:\Users\mudit\test_ransomware
+2025-06-25 11:23:09,536 - INFO - New connection from ('127.0.0.1', 59720)
+2025-06-25 11:23:09,554 - INFO - Received data from ('127.0.0.1', 59720): 2201 bytes
+2025-06-25 11:23:09,555 - INFO - ========================================
+2025-06-25 11:23:09,555 - INFO - INFECTED MACHINE DATA RECEIVED
+2025-06-25 11:23:09,556 - INFO - ========================================
+2025-06-25 11:23:09,556 - INFO - Machine ID: 192.168.217.136_Mudityadev_mudit
+2025-06-25 11:23:09,556 - INFO - IP Address: 192.168.217.136
+2025-06-25 11:23:09,557 - INFO - Operating System: Windows
+2025-06-25 11:23:09,558 - INFO - Username: mudit
+2025-06-25 11:23:09,559 - INFO - Hostname: Mudityadev
+2025-06-25 11:23:09,559 - INFO - Timestamp: 2025-06-25T11:23:09.555218
+2025-06-25 11:23:09,560 - INFO - Private Key Length: 1674 chars
+2025-06-25 11:23:09,560 - INFO - Public Key Length: 450 chars
+2025-06-25 11:23:09,560 - INFO - ========================================
+2025-06-25 11:23:09,563 - INFO - Machine data saved to: c2_data/192.168.217.136_Mudityadev_mudit_20250625_112309.json
+2025-06-25 11:23:09,564 - INFO - Started file exfiltration thread for path: C:\Users\mudit\test_ransomware
+2025-06-25 11:23:09,564 - WARNING - Target path does not exist: C:\Users\mudit\test_ransomware
+2025-06-25 11:23:09,564 - INFO - Connection closed with ('127.0.0.1', 59720)

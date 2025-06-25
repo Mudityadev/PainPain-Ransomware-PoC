@@ -1,0 +1,150 @@
+2025-06-25 11:34:20,736 - INFO - ============================================================
+2025-06-25 11:34:20,737 - INFO - C2 SERVER (ALT) STARTED
+2025-06-25 11:34:20,737 - INFO - ============================================================
+2025-06-25 11:34:20,737 - INFO - Log file: logs/c2_server_alt_20250625_113420.log
+2025-06-25 11:34:20,737 - INFO - Timestamp: 2025-06-25 11:34:20
+2025-06-25 11:34:20,742 - INFO - C2 Server listening on 127.0.0.1:8080
+2025-06-25 11:34:20,742 - INFO - Dark secure folder: darkSecureFolder
+2025-06-25 11:34:20,743 - INFO - Waiting for ransomware connections...
+2025-06-25 11:34:20,743 - INFO - Press Ctrl+C to stop the server
+2025-06-25 11:34:20,745 - INFO - ============================================================
+2025-06-25 11:34:20,746 - INFO - C2 SERVER STATUS
+2025-06-25 11:34:20,746 - INFO - ============================================================
+2025-06-25 11:34:20,747 - INFO - Total infected machines: 0
+2025-06-25 11:34:20,747 - INFO - Dark secure folder: darkSecureFolder
+2025-06-25 11:34:20,747 - INFO - No infected machines yet
+2025-06-25 11:34:20,747 - INFO - ============================================================
+2025-06-25 11:34:28,234 - INFO - New connection from ('127.0.0.1', 60880)
+2025-06-25 11:34:28,247 - INFO - Received data from ('127.0.0.1', 60880): 2201 bytes
+2025-06-25 11:34:28,248 - INFO - ========================================
+2025-06-25 11:34:28,248 - INFO - INFECTED MACHINE DATA RECEIVED
+2025-06-25 11:34:28,249 - INFO - ========================================
+2025-06-25 11:34:28,249 - INFO - Machine ID: 192.168.217.136_Mudityadev_mudit
+2025-06-25 11:34:28,250 - INFO - IP Address: 192.168.217.136
+2025-06-25 11:34:28,250 - INFO - Operating System: Windows
+2025-06-25 11:34:28,251 - INFO - Username: mudit
+2025-06-25 11:34:28,251 - INFO - Hostname: Mudityadev
+2025-06-25 11:34:28,251 - INFO - Target Directory: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 11:34:28,251 - INFO - Timestamp: 2025-06-25T11:34:28.248219
+2025-06-25 11:34:28,251 - INFO - Private Key Length: 1674 chars
+2025-06-25 11:34:28,252 - INFO - Public Key Length: 450 chars
+2025-06-25 11:34:28,252 - INFO - ========================================
+2025-06-25 11:34:28,254 - INFO - Machine data saved to: c2_data/192.168.217.136_Mudityadev_mudit_20250625_113428.json
+2025-06-25 11:34:28,254 - INFO - Starting file exfiltration for path: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 11:34:28,255 - INFO - Copying clean files BEFORE encryption...
+2025-06-25 11:34:28,256 - INFO - Started file exfiltration thread for path: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 11:34:28,256 - INFO - Starting file exfiltration from: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 11:34:28,263 - INFO - New connection from ('127.0.0.1', 60881)
+2025-06-25 11:34:28,264 - INFO - Received data from ('127.0.0.1', 60881): 2201 bytes
+2025-06-25 11:34:28,265 - INFO - ========================================
+2025-06-25 11:34:28,265 - INFO - Copied: D:\AI-Agent\Ransomware-PoC\testDir\testPasswords.txt.wasted -> darkSecureFolder\192.168.217.136_Mudityadev_mudit\testPasswords.txt.wasted (35 bytes)
+2025-06-25 11:34:28,266 - INFO - INFECTED MACHINE DATA RECEIVED
+2025-06-25 11:34:28,267 - INFO - ========================================
+2025-06-25 11:34:28,268 - INFO - Machine ID: 192.168.217.136_Mudityadev_mudit
+2025-06-25 11:34:28,268 - INFO - IP Address: 192.168.217.136
+2025-06-25 11:34:28,268 - INFO - Operating System: Windows
+2025-06-25 11:34:28,269 - INFO - Username: mudit
+2025-06-25 11:34:28,269 - INFO - Hostname: Mudityadev
+2025-06-25 11:34:28,269 - INFO - Target Directory: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 11:34:28,269 - INFO - Timestamp: 2025-06-25T11:34:28.264855
+2025-06-25 11:34:28,270 - INFO - Copied: D:\AI-Agent\Ransomware-PoC\testDir\importantFile\fdsggg.txt.wasted -> darkSecureFolder\192.168.217.136_Mudityadev_mudit\importantFile\fdsggg.txt.wasted (0 bytes)
+2025-06-25 11:34:28,270 - INFO - Private Key Length: 1674 chars
+2025-06-25 11:34:28,270 - INFO - Public Key Length: 450 chars
+2025-06-25 11:34:28,270 - INFO - ========================================
+2025-06-25 11:34:28,272 - INFO - Copied: D:\AI-Agent\Ransomware-PoC\testDir\importantFile\New Text Document - Copy.txt.wasted -> darkSecureFolder\192.168.217.136_Mudityadev_mudit\importantFile\New Text Document - Copy.txt.wasted (0 bytes)
+2025-06-25 11:34:28,273 - INFO - ==================================================
+2025-06-25 11:34:28,273 - INFO - Machine data saved to: c2_data/192.168.217.136_Mudityadev_mudit_20250625_113428.json
+2025-06-25 11:34:28,273 - INFO - FILE EXFILTRATION COMPLETED
+2025-06-25 11:34:28,274 - INFO - Starting file exfiltration for path: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 11:34:28,274 - INFO - ==================================================
+2025-06-25 11:34:28,274 - INFO - Copying clean files BEFORE encryption...
+2025-06-25 11:34:28,274 - INFO - Total files copied: 3
+2025-06-25 11:34:28,275 - INFO - Total size: 35 bytes (0.00 MB)
+2025-06-25 11:34:28,276 - INFO - Started file exfiltration thread for path: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 11:34:28,276 - INFO - Starting file exfiltration from: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 11:34:28,276 - INFO - Destination: darkSecureFolder\192.168.217.136_Mudityadev_mudit
+2025-06-25 11:34:28,277 - INFO - ==================================================
+2025-06-25 11:34:28,279 - INFO - Copied: D:\AI-Agent\Ransomware-PoC\testDir\testPasswords.txt.wasted -> darkSecureFolder\192.168.217.136_Mudityadev_mudit\testPasswords.txt.wasted (35 bytes)
+2025-06-25 11:34:28,281 - INFO - Copied: D:\AI-Agent\Ransomware-PoC\testDir\importantFile\fdsggg.txt.wasted -> darkSecureFolder\192.168.217.136_Mudityadev_mudit\importantFile\fdsggg.txt.wasted (0 bytes)
+2025-06-25 11:34:28,284 - INFO - Copied: D:\AI-Agent\Ransomware-PoC\testDir\importantFile\New Text Document - Copy.txt.wasted -> darkSecureFolder\192.168.217.136_Mudityadev_mudit\importantFile\New Text Document - Copy.txt.wasted (0 bytes)
+2025-06-25 11:34:28,285 - INFO - ==================================================
+2025-06-25 11:34:28,285 - INFO - FILE EXFILTRATION COMPLETED
+2025-06-25 11:34:28,285 - INFO - ==================================================
+2025-06-25 11:34:28,286 - INFO - Total files copied: 3
+2025-06-25 11:34:28,286 - INFO - Total size: 35 bytes (0.00 MB)
+2025-06-25 11:34:28,286 - INFO - Destination: darkSecureFolder\192.168.217.136_Mudityadev_mudit
+2025-06-25 11:34:28,286 - INFO - ==================================================
+2025-06-25 11:34:28,756 - INFO - Pre-encryption connection - files copied, waiting for encryption to complete
+2025-06-25 11:34:28,757 - INFO - Connection closed with ('127.0.0.1', 60880)
+2025-06-25 11:34:29,788 - INFO - Pre-encryption connection - files copied, waiting for encryption to complete
+2025-06-25 11:34:29,789 - INFO - Connection closed with ('127.0.0.1', 60881)
+2025-06-25 11:35:01,575 - INFO - New connection from ('127.0.0.1', 60902)
+2025-06-25 11:35:01,588 - INFO - Received data from ('127.0.0.1', 60902): 2201 bytes
+2025-06-25 11:35:01,589 - INFO - ========================================
+2025-06-25 11:35:01,589 - INFO - INFECTED MACHINE DATA RECEIVED
+2025-06-25 11:35:01,589 - INFO - ========================================
+2025-06-25 11:35:01,589 - INFO - Machine ID: 192.168.217.136_Mudityadev_mudit
+2025-06-25 11:35:01,589 - INFO - IP Address: 192.168.217.136
+2025-06-25 11:35:01,589 - INFO - Operating System: Windows
+2025-06-25 11:35:01,590 - INFO - Username: mudit
+2025-06-25 11:35:01,590 - INFO - Hostname: Mudityadev
+2025-06-25 11:35:01,590 - INFO - Target Directory: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 11:35:01,590 - INFO - Timestamp: 2025-06-25T11:35:01.588968
+2025-06-25 11:35:01,590 - INFO - Private Key Length: 1674 chars
+2025-06-25 11:35:01,591 - INFO - Public Key Length: 450 chars
+2025-06-25 11:35:01,591 - INFO - ========================================
+2025-06-25 11:35:01,592 - INFO - Machine data saved to: c2_data/192.168.217.136_Mudityadev_mudit_20250625_113501.json
+2025-06-25 11:35:01,593 - INFO - Starting file exfiltration for path: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 11:35:01,593 - INFO - Copying clean files BEFORE encryption...
+2025-06-25 11:35:01,593 - INFO - Started file exfiltration thread for path: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 11:35:01,594 - INFO - Created machine folder: darkSecureFolder\192.168.217.136_Mudityadev_mudit
+2025-06-25 11:35:01,595 - INFO - Starting file exfiltration from: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 11:35:01,598 - INFO - Copied: D:\AI-Agent\Ransomware-PoC\testDir\testPasswords.txt.wasted -> darkSecureFolder\192.168.217.136_Mudityadev_mudit\testPasswords.txt.wasted (35 bytes)
+2025-06-25 11:35:01,600 - INFO - New connection from ('127.0.0.1', 60903)
+2025-06-25 11:35:01,602 - INFO - Copied: D:\AI-Agent\Ransomware-PoC\testDir\importantFile\fdsggg.txt.wasted -> darkSecureFolder\192.168.217.136_Mudityadev_mudit\importantFile\fdsggg.txt.wasted (0 bytes)
+2025-06-25 11:35:01,604 - INFO - Copied: D:\AI-Agent\Ransomware-PoC\testDir\importantFile\New Text Document - Copy.txt.wasted -> darkSecureFolder\192.168.217.136_Mudityadev_mudit\importantFile\New Text Document - Copy.txt.wasted (0 bytes)
+2025-06-25 11:35:01,605 - INFO - ==================================================
+2025-06-25 11:35:01,605 - INFO - FILE EXFILTRATION COMPLETED
+2025-06-25 11:35:01,605 - INFO - ==================================================
+2025-06-25 11:35:01,606 - INFO - Total files copied: 3
+2025-06-25 11:35:01,606 - INFO - Total size: 35 bytes (0.00 MB)
+2025-06-25 11:35:01,606 - INFO - Destination: darkSecureFolder\192.168.217.136_Mudityadev_mudit
+2025-06-25 11:35:01,606 - INFO - ==================================================
+2025-06-25 11:35:01,619 - INFO - Received data from ('127.0.0.1', 60903): 2201 bytes
+2025-06-25 11:35:01,619 - INFO - ========================================
+2025-06-25 11:35:01,619 - INFO - INFECTED MACHINE DATA RECEIVED
+2025-06-25 11:35:01,620 - INFO - ========================================
+2025-06-25 11:35:01,620 - INFO - Machine ID: 192.168.217.136_Mudityadev_mudit
+2025-06-25 11:35:01,620 - INFO - IP Address: 192.168.217.136
+2025-06-25 11:35:01,620 - INFO - Operating System: Windows
+2025-06-25 11:35:01,620 - INFO - Username: mudit
+2025-06-25 11:35:01,620 - INFO - Hostname: Mudityadev
+2025-06-25 11:35:01,621 - INFO - Target Directory: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 11:35:01,621 - INFO - Timestamp: 2025-06-25T11:35:01.619625
+2025-06-25 11:35:01,621 - INFO - Private Key Length: 1674 chars
+2025-06-25 11:35:01,621 - INFO - Public Key Length: 450 chars
+2025-06-25 11:35:01,621 - INFO - ========================================
+2025-06-25 11:35:01,623 - INFO - Machine data saved to: c2_data/192.168.217.136_Mudityadev_mudit_20250625_113501.json
+2025-06-25 11:35:01,623 - INFO - Starting file exfiltration for path: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 11:35:01,623 - INFO - Copying clean files BEFORE encryption...
+2025-06-25 11:35:01,624 - INFO - Started file exfiltration thread for path: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 11:35:01,624 - INFO - Starting file exfiltration from: D:\AI-Agent\Ransomware-PoC\testDir
+2025-06-25 11:35:01,626 - INFO - Copied: D:\AI-Agent\Ransomware-PoC\testDir\testPasswords.txt.wasted -> darkSecureFolder\192.168.217.136_Mudityadev_mudit\testPasswords.txt.wasted (35 bytes)
+2025-06-25 11:35:01,628 - INFO - Copied: D:\AI-Agent\Ransomware-PoC\testDir\importantFile\fdsggg.txt.wasted -> darkSecureFolder\192.168.217.136_Mudityadev_mudit\importantFile\fdsggg.txt.wasted (0 bytes)
+2025-06-25 11:35:01,630 - INFO - Copied: D:\AI-Agent\Ransomware-PoC\testDir\importantFile\New Text Document - Copy.txt.wasted -> darkSecureFolder\192.168.217.136_Mudityadev_mudit\importantFile\New Text Document - Copy.txt.wasted (0 bytes)
+2025-06-25 11:35:01,631 - INFO - ==================================================
+2025-06-25 11:35:01,631 - INFO - FILE EXFILTRATION COMPLETED
+2025-06-25 11:35:01,631 - INFO - ==================================================
+2025-06-25 11:35:01,631 - INFO - Total files copied: 3
+2025-06-25 11:35:01,632 - INFO - Total size: 35 bytes (0.00 MB)
+2025-06-25 11:35:01,632 - INFO - Destination: darkSecureFolder\192.168.217.136_Mudityadev_mudit
+2025-06-25 11:35:01,632 - INFO - ==================================================
+2025-06-25 11:35:02,094 - INFO - Pre-encryption connection - files copied, waiting for encryption to complete
+2025-06-25 11:35:02,095 - INFO - Connection closed with ('127.0.0.1', 60902)
+2025-06-25 11:35:03,134 - INFO - Pre-encryption connection - files copied, waiting for encryption to complete
+2025-06-25 11:35:03,135 - INFO - Connection closed with ('127.0.0.1', 60903)
+2025-06-25 11:35:17,701 - INFO - C2 Server stopped
+2025-06-25 11:35:17,701 - INFO - All connections closed
+2025-06-25 11:35:17,702 - INFO - ============================================================
+2025-06-25 11:35:17,702 - INFO - C2 SERVER SHUTDOWN COMPLETE
+2025-06-25 11:35:17,703 - INFO - ============================================================

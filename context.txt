@@ -1,0 +1,25 @@
+Project: Ransomware-PoC
+
+**Overview:**
+This project is a Proof-of-Concept (PoC) for ransomware behavior, intended for educational, research, or demonstration purposes only. It simulates the discovery, encryption, and modification of files, and includes both command-line and graphical user interface (GUI) components. The project is not intended for malicious use.
+
+**Directory Structure:**
+
+- `bin/`: Contains compiled binaries for different versions and platforms.
+  - `main/`: Original version binaries (`main`, `main_macos_py2`, `main.exe`).
+  - `main_v2/`: Updated version binaries (`main_v2`, `main_v2_macos_py2`, `main_v2.exe`).
+  - `main_v2_oneclick/`: One-click version binaries for encrypting only common folders.
+- `demo/`: Demo assets such as GIFs and images for showcasing the tool.
+- `discover.py`: Script for discovering files to target.
+- `gui.py`: Script for the graphical user interface.
+- `main.py`: Main script for the original PoC.
+- `main_v2.py`: Main script for the updated PoC version.
+- `modify.py`: Script for modifying files (possibly for encryption/decryption).
+- `README.md`: Project documentation and usage instructions.
+- `LICENSE` and `LEGAL`: Legal disclaimers and licensing information.
+
+**Key Points:**
+- The project demonstrates ransomware techniques in a controlled environment.
+- Multiple versions and binaries are provided for different platforms and use cases.
+- The codebase includes both CLI and GUI interfaces.
+- All usage must comply with legal and ethical guidelines as outlined in the LICENSE and LEGAL files. 

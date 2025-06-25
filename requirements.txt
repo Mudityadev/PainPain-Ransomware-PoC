@@ -1,0 +1,4 @@
+pycryptodome
+
+# For GUI
+# (tkinter is included with standard Python installations) 
