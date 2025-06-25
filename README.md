@@ -1,201 +1,180 @@
-# PainPain Ransomware POC
+# PainPain Ransomware PoC Documentation
 
-**PainPain** is a Proof-of-Concept (PoC) ransomware project for educational and research purposes only. It demonstrates how modern ransomware can discover, encrypt, and exfiltrate files, and features a realistic, modern GUI inspired by infamous ransomware attacks.
+## 1. Overview
 
----
-
-## ⚠️ Disclaimer
-**This project is for educational and ethical research use only.**
-- Do not use this code for malicious purposes.
-- The authors are not responsible for any misuse or damage caused by this project.
-- Always comply with local laws and regulations.
+**PainPain** is a modular, educational Proof-of-Concept (PoC) ransomware project. It demonstrates file discovery, encryption, exfiltration, and a realistic GUI, all for research and ethical hacking education. **Do not use for malicious purposes.**
 
 ---
 
-![PainPain Ransomware PoC Demo](web/assets/demo.png)
-<p align="center"><b>PainPain Ransomware PoC Demo</b></p>
+## 2. Key Features
+- **Recursive File Discovery** (configurable)
+- **AES Encryption/Decryption** with Fernet
+- **C2 Server Simulation** (Flask, HTTP POST)
+- **Modern GUI** (Tkinter, realistic ransom note, timer, payment instructions)
+- **Professional Logging** (console & file)
+- **Safe PoC** (test directories, no destructive defaults)
+- **Extensible, Modular Python Package**
+- **Unit & Integration Tests**
 
 ---
-## Features
-- **File Discovery:** Recursively finds target files in a specified directory.
-- **AES Encryption/Decryption:** Securely encrypts and decrypts files with a hardcoded key.
-- **C2 Server Simulation:** Exfiltrates target directory and user info to a simulated C2 server.
-- **Modern Ransomware GUI:** Displays a realistic ransom note, timer, payment instructions, and a decryption workflow.
-- **Safe PoC:** Designed for controlled environments and test directories only.
 
----
+## 3. Quick Start
 
-## Usage
-### 1. Install Requirements
-```
+### Installation
+```sh
 pip install -r requirements.txt
 ```
 
-### 2. Set Up Environment Variables
-- Copy `.env.example` to `.env`:
-  ```
-  cp .env.example .env
-  ```
-- Fill in your own secrets, keys, and configuration values in `.env`.
-- **Never commit your `.env` file to version control!**
+### Environment Setup
+- Copy `.env.example` to `.env` and fill in your secrets/keys/configuration.
+- **Never commit your `.env` file!**
 
-### 3. Start the C2 Server
-```
-python c2_server_alt.py
+### Running the C2 Server
+```sh
+python c2_server/c2_server_alt.py
 ```
 
-### 4. Run the Ransomware PoC
+### Running the Agent (CLI & GUI)
 - **Encrypt files:**
-  ```
-  python main_v2.py -p "D:\testDir" -e
+  ```sh
+  python main.py -p "./testDir/banking_receipts" -e
   ```
 - **Decrypt files:**
+  ```sh
+  python main.py -p "./testDir/banking_receipts" -d
   ```
-  python main_v2.py -p "D:\testDir" -d
-  ```
-
-### 5. GUI Interaction
-- The GUI will display a ransom note, timer, and payment instructions.
-- Enter the code `bitcoin` and click **Decrypt Files** to trigger decryption (for demo/testing).
+- **GUI:**
+  - The GUI will display a ransom note, timer, and payment instructions.
+  - Enter the code `bitcoin` and click **Decrypt Files**. After successful decryption, the window closes automatically in 1 second.
 
 ---
 
-## Project Structure
-- `main_v2.py` — Main ransomware PoC script
-- `wannacry_gui.py` — Modern ransomware GUI
-- `c2_server/` — All C2 server code and related files
-- `discover.py` — File discovery logic
-- `modify.py` — File encryption/decryption logic
-- `gui_main.py` — Main GUI entry point
-- `__init__.py` — Package marker
+## 4. Project Structure
 
-## Modular Structure Update
-
-The codebase has been refactored for modularity:
-
-- All core logic is now in the `ransomware/` package:
-  - `ransomware/discover.py`: File discovery logic
-  - `ransomware/modify.py`: File modification (encryption/decryption)
-  - `ransomware/gui_main.py`: Main GUI entry point (formerly `wannacry_gui.py`)
-  - `ransomware/__init__.py`: Package marker
-
-Update your imports to use the new package structure, e.g.:
-
-```python
-from ransomware import discover, modify
-from ransomware.gui_main import WannaCryGUI
+```
+PainPain-Ransomware-PoC/
+├── main.py                # Main CLI entry point
+├── ransomware/            # Core package
+│   ├── core.py            # Orchestrates discovery, encryption, GUI
+│   ├── config.py          # AppConfig (pydantic)
+│   ├── gui/               # GUI logic (Tkinter)
+│   ├── gui_main.py        # Main GUI entry point
+│   ├── crypto/            # Encryption, key management
+│   ├── discovery/         # File discovery logic
+│   ├── network/           # C2 client logic
+│   ├── exceptions.py      # Custom exceptions
+│   └── ...
+├── c2_server/             # C2 server (Flask)
+│   ├── c2_server_alt.py   # HTTP POST C2 server
+│   └── ...
+├── testDir/               # Sample/test data
+├── tests/                 # Unit/integration tests
+├── requirements.txt       # Python dependencies
+├── Dockerfile             # Containerization
+├── README.md              # Documentation
+└── ...
 ```
 
-All previous functionality is preserved, but now organized for clarity and maintainability.
+---
 
-## Modern HTTP POST C2 Architecture
+## 5. Module Documentation
 
-- The C2 server now uses Flask and receives exfiltration data via HTTP POST at `/exfiltrate`.
-- The agent sends machine and target directory info to the C2 server before encryption.
-- All communication is logged and robust to errors.
+### CLI/Agent (`main.py`)
+- Entry point for encryption/decryption.
+- Uses argparse for CLI options.
+- Loads config from `.env` via `AppConfig`.
+- Calls `RansomwareApp` for all operations.
 
-## Agent Features
-- Modular, production-ready Python package (`ransomware/`)
-- Professional logging (console and file, with timestamps and context)
-- Robust error handling and custom exceptions
-- Configurable via `.env` and `AppConfig`
-- Full encryption/decryption cycle with key management
-- GUI (Tkinter) for user interaction and ransom note
-- HTTP POST C2 communication (see `core.py` and `network/client.py`)
-- Unit and integration tests (see `tests/`)
+### Core Logic (`ransomware/core.py`)
+- `RansomwareApp`: Orchestrates key management, file discovery, encryption/decryption, C2 exfiltration, and GUI launch.
 
-## C2 Server Features
-- Flask-based HTTP POST endpoint (`/exfiltrate`)
-- Logs all connections and exfiltration events
-- Stores machine data and exfiltrated files in organized folders
-- Status endpoint and health checks (recommended for production)
+### GUI (`ransomware/gui/main.py`, `ransomware/gui_main.py`)
+- Tkinter-based GUI simulating a real ransomware note.
+- Timer, payment instructions, and decryption workflow.
+- Window closes 1 second after successful decryption.
 
-## Configuration
+### Crypto (`ransomware/crypto/`)
+- `encryptor.py`: Fernet-based file encryption/decryption.
+- `keys.py`: Key load/save utilities.
+
+### Discovery (`ransomware/discovery/`)
+- `discoverer.py`: Recursively finds files, with optional extension filtering.
+
+### Network (`ransomware/network/`)
+- `client.py`: Sends exfiltration data to C2 server via HTTP POST.
+
+### C2 Server (`c2_server/c2_server_alt.py`)
+- Flask app, receives exfiltration data at `/exfiltrate`.
+- Logs all events, stores machine data and exfiltrated files.
+
+### Tests (`tests/`)
+- Unit and integration tests for discovery, encryption, GUI, and network.
+
+### Sample Data (`testDir/`)
+- Contains realistic test files (docs, images, configs, etc.) for safe demonstration.
+
+---
+
+## 6. Configuration
 - All config is managed via `.env` and `ransomware/config.py`.
 - Example `.env`:
+  ```ini
+  c2_server_url="http://localhost:8080"
+  encryption_key_path="./encryption.key"
+  log_level="INFO"
+  environment="development"
+  timeout=30
+  hardcoded_key="your_hardcoded_key_here"
+  decrypt_code="bitcoin"
+  server_public_rsa_key="-----BEGIN PUBLIC KEY-----\n...\n-----END PUBLIC KEY-----"
+  server_private_rsa_key="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----"
+  extension=".wasted"
+  host="127.0.0.1"
+  port=8080
+  payment_address="1BitcoinEaterAddressDontSendf59kuE"
+  ```
 
-```
-c2_server_url="http://localhost:8080"
-encryption_key_path="./encryption.key"
-log_level="INFO"
-environment="development"
-timeout=30
-hardcoded_key="your_hardcoded_key_here"
-decrypt_code="bitcoin"
-server_public_rsa_key="-----BEGIN PUBLIC KEY-----\n...\n-----END PUBLIC KEY-----"
-server_private_rsa_key="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----"
-extension=".wasted"
-host="127.0.0.1"
-port=8080
-payment_address="1BitcoinEaterAddressDontSendf59kuE"
-```
+---
 
-## Developer Standards & Extensibility
-- All classes and functions are fully documented with docstrings and comments.
-- Type hints are used throughout for clarity and tooling.
-- Logging is consistent and professional.
-- The codebase is ready for plugins, metrics, and further automation.
-- Contributions should follow the modular structure and docstring standards.
+## 7. Docker Usage
 
-## Running the Project
-- See the Docker/X11 section above for containerized usage.
-- To run locally:
-  1. Start the C2 server: `python c2_server/c2_server_alt.py`
-  2. Run the agent: `python main.py -p "<target_dir>" -e`
-
-## Running with Docker (with GUI/X11 Support)
-
-This project supports running in a Docker container, including the GUI (Tkinter) via X11 forwarding.
-
-### 1. Build the Docker Image
-
+### Build the Docker Image
 ```sh
 docker build -t ransomware-poc .
 ```
 
-### 2. Run the Container with X11 Forwarding
+### Run with X11 Forwarding (for GUI)
+- See README above for Linux, macOS, and Windows/WSL2 instructions.
 
-#### **On Linux**
+---
 
-```sh
-xhost +local:root  # Allow local root to access X11
+## 8. Testing
+- Run all tests:
+  ```sh
+  pytest
+  ```
+- Tests are in the `tests/` directory.
 
-docker run -it \
-    -e DISPLAY=$DISPLAY \
-    -v /tmp/.X11-unix:/tmp/.X11-unix \
-    ransomware-poc
-```
+---
 
-#### **On macOS**
-- Install XQuartz and start it (`open -a XQuartz`).
-- In XQuartz preferences, enable "Allow connections from network clients".
-- Run:
+## 9. Contributing
+- Fork the repo, create a feature branch, follow modular structure and docstring standards.
+- Write clean code with type hints and docstrings.
+- Submit a PR with a meaningful description.
 
-```sh
-IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
-export DISPLAY=$IP:0
-xhost + $IP
+---
 
-docker run -it \
-    -e DISPLAY=$DISPLAY \
-    -v /tmp/.X11-unix:/tmp/.X11-unix \
-    ransomware-poc
-```
+## 10. Legal & Ethical Notice
+- **For educational and ethical research use only.**
+- Do not use on production or unauthorized systems.
+- Authors are not responsible for misuse or damage.
+- Always comply with local laws and regulations.
 
-#### **On Windows (with WSL2)**
-- Install an X server (e.g., VcXsrv or Xming) and start it.
-- Set the DISPLAY variable in your WSL2 shell:
+---
 
-```sh
-export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0
-export LIBGL_ALWAYS_INDIRECT=1
+## 11. Contact
+- Suggestions, security insights, or collaboration ideas? Email: mudityadev@gmail.com
 
-docker run -it \
-    -e DISPLAY=$DISPLAY \
-    -v /tmp/.X11-unix:/tmp/.X11-unix \
-    ransomware-poc
-```
+---
 
-**Note:**
-- The GUI will appear on your host system if X11 is set up correctly.
-- For headless or server environments, you can run without the GUI by modifying the entrypoint in the Dockerfile.
+> "Cybersecurity is not about avoiding threats — it's about understanding them first."

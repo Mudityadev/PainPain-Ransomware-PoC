@@ -143,6 +143,7 @@ class WannaCryGUI(tk.Tk):
                 result = subprocess.run(self.decrypt_cmd, capture_output=True, text=True)
                 if result.returncode == 0:
                     messagebox.showinfo("Success", "Files decrypted successfully!")
+                    self.after(1000, self.destroy)
                 else:
                     messagebox.showerror("Decryption Error", f"Decryption failed.\n\n{result.stderr}")
             except Exception as e:

