@@ -1,411 +1,321 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ransomware PoC - Modern, Scalable, Secure</title>
-    <link rel="stylesheet" href="web/style.css">
-    <link rel="icon" href="web/assets/demo.png">
-
-    <!-- Bootstrap 5 -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-
-    <!-- =====  Dark-Apple palette  ===== -->
-    <style>
-      :root {
-        /* core tones */
-        --bg-main: #0d0d0d;
-        --bg-elevated: #1a1a1a;
-        --bg-glass: rgba(255, 255, 255, 0.05);
-        --border-glass: rgba(255, 255, 255, 0.08);
-
-        /* accent red – use one shade everywhere */
-        --accent: #ff453a;
-
-        --txt-primary: #f5f6fa;
-        --txt-muted: #c9c9d1;
-      }
-
-      /* --------  global  -------- */
-      body {
-        background: var(--bg-main);
-        color: var(--txt-primary);
-        font-family: "SF Pro Display", system-ui, -apple-system, Segoe UI,
-          Roboto, Helvetica Neue, Arial, sans-serif;
-      }
-
-      a {
-        color: var(--accent);
-      }
-      a:hover {
-        color: #ff7067;
-      }
-
-      /* --------  navbar  -------- */
-      .navbar-dark {
-        background: #000; /* flat black like apple.com */
-        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
-      }
-
-      /* --------  hero  -------- */
-      .hero-box {
-        background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
-        border-radius: 2rem;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
-      }
-
-      /* --------  reusable glass card  -------- */
-      .glass {
-        background: var(--bg-glass);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid var(--border-glass);
-        border-radius: 1.5rem;
-      }
-
-      /* --------  accent button  -------- */
-      .accent-btn {
-        background: var(--accent);
-        border: none;
-        color: #fff !important;
-        border-radius: 2rem;
-        font-weight: 600;
-        transition: transform 0.15s ease, box-shadow 0.15s ease;
-      }
-      .accent-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 18px rgba(255, 69, 58, 0.45);
-      }
-
-      /* --------  gradient heading  -------- */
-      .accent-heading {
-        background: linear-gradient(90deg, #ff8a7f 0%, var(--accent) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
-      /* --------  footer  -------- */
-      .dark-footer {
-        background: #000;
-        border-top: 1px solid #222;
-        color: var(--txt-muted);
-      }
-
-      /* --------  tables & modal  -------- */
-      .table-dark {
-        --bs-table-bg: var(--bg-elevated);
-        --bs-table-striped-bg: #202020;
-        --bs-table-hover-bg: #242424;
-        color: var(--txt-primary);
-        border-color: #333;
-      }
-
-      .modal-content {
-        background: var(--bg-elevated);
-        color: var(--txt-primary);
-        border-radius: 1.5rem;
-        border: 1px solid #333;
-      }
-
-      /* misc */
-      .card-title {
-        color: var(--accent);
-        font-weight: 600;
-      }
-    </style>
-  </head>
-
-  <body class="d-flex flex-column min-vh-100">
-    <!-- ••• Top disclaimer banner ••• -->
-    <div
-      id="topDisclaimer"
-      class="alert alert-danger d-flex align-items-center justify-content-center mb-0 rounded-0 py-2 px-3 text-center"
-      role="alert"
-      style="
-        z-index: 1050;
-        background: var(--accent);
-        color: #1a1a1a;
-        font-weight: 600;
-      "
-    >
-      <span class="me-2 fs-5"></span>
-      <span>
-        This project is for <b>educational and ethical research</b> only. Do
-        not use on production systems. Authors are not liable for misuse.
-      </span>
-      <button
-        id="closeTopDisclaimer"
-        type="button"
-        class="btn-close ms-3"
-        aria-label="Close"
-      ></button>
-    </div>
-
-    <!-- ••• Navbar ••• -->
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-      <div class="container">
-        <a class="navbar-brand fw-bold fs-3" href="#">PainPain</a>
-
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="#features">Features</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#usage">Usage</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#structure">Structure</a>
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                href="#"
-                data-bs-toggle="modal"
-                data-bs-target="#disclaimerModal"
-                >Disclaimer</a
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PainPain Ransomware PoC</title>
+  <link rel="stylesheet" href="web/style.css">
+  <link rel="icon" href="web/assets/demo.png">
+  <style>
+    body { background: var(--bg, #0d0d0d); color: var(--text, #f2f2f2); margin:0; }
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(20,20,20,0.92);
+      box-shadow: 0 2px 16px #0008;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.7rem 2.5rem;
+      font-size: 1.1rem;
+      font-family: inherit;
+      backdrop-filter: blur(12px);
+    }
+    .navbar .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--accent, #00ffc3);
+      letter-spacing: 1px;
+    }
+    .navbar nav {
+      display: flex;
+      gap: 2rem;
+    }
+    .navbar nav a {
+      color: var(--text, #f2f2f2);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.18s;
+    }
+    .navbar nav a:hover {
+      color: var(--accent, #00ffc3);
+    }
+    .navbar .cta-btn {
+      margin-left: 2rem;
+      padding: 0.5rem 1.3rem;
+      font-size: 1rem;
+    }
+    .hero {
+      padding: 6.5rem 2rem 2rem 2rem;
+      text-align: center;
+      background: linear-gradient(160deg, #111, #1e1e1e);
+    }
+    .banner-img {
+      width: 100vw;
+      max-width: 100%;
+      height: 320px;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      margin: 0 auto 2.5rem auto;
+      border-radius: 0 0 2.5rem 2.5rem;
+      box-shadow: 0 8px 32px #00ffc355;
+    }
+    .hero-logo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      box-shadow: 0 4px 32px #00ffc355;
+      margin-bottom: 1.5rem;
+      display: none;
+    }
+    .hero-title {
+      font-size: 3rem;
+      font-weight: bold;
+      color: var(--accent, #00ffc3);
+      margin-bottom: 0.5rem;
+    }
+    .hero-subtitle {
+      color: var(--subtext, #aaaaaa);
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+    }
+    .cta-btn {
+      background: var(--accent, #00ffc3);
+      color: #111;
+      font-weight: bold;
+      padding: 0.9rem 2.2rem;
+      border-radius: 2rem;
+      font-size: 1.2rem;
+      border: none;
+      box-shadow: 0 2px 12px #00ffc355;
+      transition: background 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+    .cta-btn:hover {
+      background: #00e6b2;
+      transform: translateY(-2px) scale(1.04);
+    }
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin: 3rem 0 2rem 0;
+    }
+    .feature-card {
+      background: var(--section, #1a1a1a);
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 24px #0006;
+      padding: 2rem 1.5rem;
+      width: 270px;
+      text-align: center;
+      color: var(--text);
+      transition: transform 0.15s;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 8px 32px #00ffc355;
+    }
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.7rem;
+    }
+    .feature-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--accent, #00ffc3);
+      margin-bottom: 0.5rem;
+    }
+    .quickstart, .project-structure, .modules {
+      background: #181818;
+      border-radius: 1.2rem;
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 700px;
+      box-shadow: 0 2px 16px #0004;
+    }
+    .quickstart h2, .project-structure h2, .modules h2 {
+      color: var(--accent, #00ffc3);
+      margin-bottom: 1rem;
+    }
+    .quickstart code, .modules code {
+      background: #222;
+      color: var(--accent, #00ffc3);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .project-structure pre {
+      background: #222;
+      color: #fff;
+      border-radius: 8px;
+      padding: 1rem;
+      font-size: 0.98rem;
+      overflow-x: auto;
+    }
+    .modules ul { margin: 0 0 1.5rem 0; }
+    .modules li { margin-bottom: 0.5rem; }
+    .disclaimer {
+      background: #2a0000;
+      color: #ffb3b3;
+      border-radius: 1rem;
+      padding: 1.2rem 2rem;
+      margin: 2rem auto 1.5rem auto;
+      max-width: 700px;
+      font-size: 1.05rem;
+      text-align: center;
+      box-shadow: 0 2px 12px #0003;
+    }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.95rem;
+      color: var(--subtext, #aaaaaa);
+      background-color: #111;
+      border-top: 1px solid #222;
+    }
+    @media (max-width: 700px) {
+      .navbar { flex-direction: column; padding: 0.7rem 1rem; }
+      .features { flex-direction: column; gap: 1.2rem; }
+      .feature-card { width: 95vw; }
+      .quickstart, .project-structure, .modules { padding: 1rem; }
+      .banner-img { height: 180px; border-radius: 0 0 1.2rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">PainPain</div>
+    <nav>
+      <a href="#hero">Home</a>
+      <a href="#features">Features</a>
+      <a href="#quickstart">Quick Start</a>
+      <a href="#structure">Structure</a>
+      <a href="https://github.com/Mudityadev/PainPain-Ransomware-PoC" target="_blank">GitHub</a>
     </nav>
+    <a href="https://github.com/Mudityadev/PainPain-Ransomware-PoC" target="_blank"><button class="cta-btn">View on GitHub</button></a>
+  </div>
 
-    <!-- ••• Page content ••• -->
-    <main class="flex-shrink-0">
-      <!-- Hero -->
-      <header class="hero">
-        <img src="web/assets/demo.png" alt="Ransomware PoC Demo" class="hero-img" height="400" width="800">
-        <h1>PainPain Ransomware PoC</h1>
-        <p class="subtitle">A modern, modular, and secure proof-of-concept for ransomware research and education.</p>
-      </header>
+  
 
-      <!-- Features -->
-      <section id="features" class="container py-5">
-        <h2 class="text-center fw-bold mb-5 accent-heading">Key Features</h2>
-        <div class="row g-4 justify-content-center">
-          <!-- single card -->
-          <div class="col-12 col-md-6 col-lg-3">
-            <div class="card glass text-center h-100 border-0">
-              <div class="card-body">
-                <div class="fs-1 mb-2">🛡️</div>
-                <h5 class="card-title">Modern HTTP POST C2 Architecture</h5>
-                <p class="card-text">
-                  Secure, scalable, and easy to extend.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- repeat for each feature -->
-          <div class="col-12 col-md-6 col-lg-3">
-            <div class="card glass text-center h-100 border-0">
-              <div class="card-body">
-                <div class="fs-1 mb-2">🔒</div>
-                <h5 class="card-title">Full Encryption/Decryption Cycle</h5>
-                <p class="card-text">
-                  Robust cryptography and key management.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-md-6 col-lg-3">
-            <div class="card glass text-center h-100 border-0">
-              <div class="card-body">
-                <div class="fs-1 mb-2">🖥️</div>
-                <h5 class="card-title">GUI (Tkinter)</h5>
-                <p class="card-text">
-                  Realistic ransom note and user interaction.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-md-6 col-lg-3">
-            <div class="card glass text-center h-100 border-0">
-              <div class="card-body">
-                <div class="fs-1 mb-2">📦</div>
-                <h5 class="card-title">Modular Python Package</h5>
-                <p class="card-text">
-                  Clean, maintainable, and ready for large teams.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-md-6 col-lg-3">
-            <div class="card glass text-center h-100 border-0">
-              <div class="card-body">
-                <div class="fs-1 mb-2">📑</div>
-                <h5 class="card-title">Professional Logging</h5>
-                <p class="card-text">
-                  Structured logs for both console and file.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-md-6 col-lg-3">
-            <div class="card glass text-center h-100 border-0">
-              <div class="card-body">
-                <div class="fs-1 mb-2">⚙️</div>
-                <h5 class="card-title">Configurable & Extensible</h5>
-                <p class="card-text">
-                  .env, type hints, docstrings, and plugin-ready.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-md-6 col-lg-3">
-            <div class="card glass text-center h-100 border-0">
-              <div class="card-body">
-                <div class="fs-1 mb-2">🧪</div>
-                <h5 class="card-title">Tested & CI/CD Ready</h5>
-                <p class="card-text">
-                  Unit/integration tests and GitHub Actions workflow.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- C2 Server -->
-      <section id="c2" class="container py-5">
-        <h2 class="text-center fw-bold mb-5 accent-heading">HTTP POST C2 Server</h2>
-        <p>The C2 server is built with Flask and receives exfiltration data via HTTP POST at <code>/exfiltrate</code>. All connections and file exfiltration events are logged and stored securely.</p>
-      </section>
-
-      <!-- Developer Standards -->
-      <section id="dev" class="container py-5">
-        <h2 class="text-center fw-bold mb-5 accent-heading">Developer Standards</h2>
-        <ul>
-          <li>📚 Full Documentation: Every class and function is commented and explained.</li>
-          <li>📝 Type Hints: For clarity and IDE support.</li>
-          <li>🔄 Extensible: Ready for plugins, metrics, and automation.</li>
-          <li>🤝 Contributions Welcome: Follow the modular structure and docstring standards.</li>
-        </ul>
-      </section>
-
-      <!-- Usage -->
-      <section id="usage" class="container py-5">
-        <h2 class="text-center fw-bold mb-5 accent-heading">How to Run</h2>
-        <ol
-          class="list-group list-group-numbered mx-auto"
-          style="max-width: 620px"
-        >
-          <li class="list-group-item bg-transparent border-secondary">
-            Start the C2 server: <code>python c2_server/c2_server_alt.py</code>
-          </li>
-          <li class="list-group-item bg-transparent border-secondary">
-            Run the agent: <code>python main.py -p "&lt;target_dir&gt;" -e</code>
-          </li>
-        </ol>
-        <p>See the README for Docker/X11 and advanced usage.</p>
-      </section>
-
-      <!-- Disclaimer -->
-      <section id="disclaimer" class="container py-5">
-        <h2 class="text-center fw-bold mb-5 accent-heading">Disclaimer</h2>
-        <p>This project is for educational and research purposes only. Do not use in production or on unauthorized systems.</p>
-      </section>
-    </main>
-
-    <!-- ••• Footer ••• -->
-    <footer class="dark-footer text-center py-4 mt-auto">
-      <div class="container">
-        <div class="mb-2">
-          <a
-            href="https://github.com/"
-            target="_blank"
-            class="me-3"
-            aria-label="GitHub"
-            style="color: var(--txt-primary)"
-            ><svg
-              width="24"
-              height="24"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.01-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.78 2.73 1.27 3.4.97.11-.75.41-1.27.74-1.56-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 012.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.7.42.36.79 1.09.79 2.2 0 1.59-.01 2.87-.01 3.26 0 .31.21.68.8.56C20.71 21.39 24 17.08 24 12c0-6.27-5.23-11.5-12-11.5z"
-              />
-            </svg>
-          </a>
-          <span
-            class="badge rounded-pill"
-            style="
-              background: var(--accent);
-              color: #111;
-              font-weight: 600;
-            "
-            >Disclaimer</span
-          >
-        </div>
-        © 2025 PainPain – Built for ethical hacking &amp; research.
-      </div>
-    </footer>
-
-    <!-- ••• Disclaimer Modal ••• -->
-    <div
-      class="modal fade"
-      id="disclaimerModal"
-      tabindex="-1"
-      aria-labelledby="disclaimerModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header border-0">
-            <h5 class="modal-title accent-heading" id="disclaimerModalLabel">
-              ⚠️ Disclaimer
-            </h5>
-            <button
-              type="button"
-              class="btn-close btn-close-white"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <ul class="list-unstyled mb-0">
-              <li>Strictly for ethical and educational use only.</li>
-              <li>Do not deploy on production or live systems.</li>
-              <li>Authors are not liable for any misuse or damage.</li>
-              <li>Always comply with applicable laws and policies.</li>
-            </ul>
-          </div>
-        </div>
+  <div class="disclaimer-alert" style="width:100%;background:linear-gradient(90deg,#ff3c3c 0,#b80000 100%);color:#fff;padding:0.85rem 0.5rem 0.85rem 2.5rem;display:flex;align-items:center;gap:1rem;box-shadow:0 2px 12px #0002;font-size:1.08rem;position:relative;z-index:10;border-radius:0 0 1.2rem 1.2rem;margin-bottom:2.2rem;">
+    <span style="font-size:1.5rem;line-height:1;margin-right:0.7rem;">&#9888;</span>
+    <span>
+      <b>Disclaimer:</b> This project is for <b>educational and ethical research</b> only.
+      Do not use on production or unauthorized systems. Authors are not liable for misuse.
+    </span>
+  </div>
+  <div id="hero" class="hero" style="display: flex; align-items: center; justify-content: center; gap: 2.5rem; flex-wrap: wrap; max-width: 1100px; margin: 0 auto;">
+    <div style="flex: 0 1 380px; display: flex; justify-content: flex-end; min-width: 240px;">
+      <img src="web/assets/demo.png" alt="PainPain Demo Banner" style="width: 100%; max-width: 340px; height: auto; border-radius: 1.5rem; box-shadow:0 4px 32px #0002;">
+    </div>
+    <div style="flex: 1 1 420px; min-width: 260px; display: flex; flex-direction: column; justify-content: center;">
+      <div class="hero-title" style="font-size:2.3rem;line-height:1.15;margin-bottom:0.7rem;">PainPain Ransomware PoC</div>
+      <div class="hero-subtitle" style="font-size:1.18rem;line-height:1.6;color:#e0e0e0;">
+        A modern, modular, and secure proof-of-concept for ransomware research and education.<br>
+        <span style="color:#ffb3b3;font-weight:500;">For ethical and educational use only.</span>
       </div>
     </div>
+  </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-      /* close top banner */
-      document.getElementById("closeTopDisclaimer").onclick = () => {
-        const banner = document.getElementById("topDisclaimer");
-        banner.style.transition = "opacity 0.4s";
-        banner.style.opacity = 0;
-        setTimeout(() => (banner.style.display = "none"), 400);
-      };
-    </script>
-  </body>
+
+
+
+  <div id="features" class="features">
+    <div class="feature-card">
+      <div class="feature-icon">🛡️</div>
+      <div class="feature-title">Modern C2 Architecture</div>
+      <div>Flask-based HTTP POST C2 server, robust and scalable.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔒</div>
+      <div class="feature-title">Full Encryption Cycle</div>
+      <div>Secure AES encryption/decryption with key management.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🖥️</div>
+      <div class="feature-title">Realistic GUI</div>
+      <div>Modern Tkinter GUI with timer, ransom note, and payment instructions.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📦</div>
+      <div class="feature-title">Modular Python Package</div>
+      <div>Clean, maintainable, and ready for research or demo labs.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📑</div>
+      <div class="feature-title">Professional Logging</div>
+      <div>Colorful, structured logs for both console and file.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚙️</div>
+      <div class="feature-title">Configurable & Extensible</div>
+      <div>.env, type hints, docstrings, and plugin-ready.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🧪</div>
+      <div class="feature-title">Tested & CI/CD Ready</div>
+      <div>Unit/integration tests and GitHub Actions workflow.</div>
+    </div>
+  </div>
+
+  <div id="quickstart" class="quickstart">
+    <h2>Quick Start</h2>
+    <ol>
+      <li>Install requirements: <code>pip install -r requirements.txt</code></li>
+      <li>Copy <code>.env.example</code> to <code>.env</code> and fill in your config.</li>
+      <li>Start the C2 server: <code>python c2_server/c2_server_alt.py</code></li>
+      <li>Run the agent: <code>python main.py -e</code> (select target folder when prompted)</li>
+    </ol>
+    <div style="margin-top:1rem; color:var(--subtext); font-size:0.98rem;">See the README for Docker, advanced usage, and more.</div>
+  </div>
+
+  <div id="structure" class="project-structure">
+    <h2>Project Structure</h2>
+    <pre><code>PainPain-Ransomware-PoC/
+├── main.py                # Main CLI entry point
+├── ransomware/            # Core package
+│   ├── core.py            # Orchestrates discovery, encryption, GUI
+│   ├── config.py          # AppConfig (pydantic)
+│   ├── gui/               # GUI logic (Tkinter)
+│   ├── gui_main.py        # Main GUI entry point
+│   ├── crypto/            # Encryption, key management
+│   ├── discovery/         # File discovery logic
+│   ├── network/           # C2 client logic
+│   ├── exceptions.py      # Custom exceptions
+│   └── ...
+├── c2_server/             # C2 server (Flask)
+│   ├── c2_server_alt.py   # HTTP POST C2 server
+│   └── ...
+├── testDir/               # Sample/test data
+├── tests/                 # Unit/integration tests
+├── requirements.txt       # Python dependencies
+├── Dockerfile             # Containerization
+├── README.md              # Documentation
+└── ...
+</code></pre>
+  </div>
+
+  <div class="modules">
+    <h2>Module Highlights</h2>
+    <ul>
+      <li><b>CLI/Agent:</b> <code>main.py</code> — Entry point for encryption/decryption, CLI options, config loading.</li>
+      <li><b>Core Logic:</b> <code>ransomware/core.py</code> — Orchestrates key management, file discovery, encryption/decryption, C2 exfiltration, GUI launch.</li>
+      <li><b>GUI:</b> <code>ransomware/gui/main.py</code>, <code>ransomware/gui_main.py</code> — Tkinter GUI, timer, ransom note, payment instructions.</li>
+      <li><b>Crypto:</b> <code>ransomware/crypto/</code> — Fernet-based encryption/decryption, key utilities.</li>
+      <li><b>Discovery:</b> <code>ransomware/discovery/</code> — Recursively finds files, extension filtering.</li>
+      <li><b>Network:</b> <code>ransomware/network/</code> — Sends exfiltration data to C2 server via HTTP POST.</li>
+      <li><b>C2 Server:</b> <code>c2_server/c2_server_alt.py</code> — Flask app, receives exfiltration data, logs events.</li>
+      <li><b>Tests:</b> <code>tests/</code> — Unit and integration tests for all modules.</li>
+      <li><b>Sample Data:</b> <code>testDir/</code> — Realistic test files for safe demonstration.</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    &copy; 2025 PainPain &mdash; Built for ethical hacking &amp; research.<br>
+    <span style="color:var(--accent);font-weight:bold;">Cybersecurity is not about avoiding threats — it's about understanding them first.</span>
+  </div>
+</body>
 </html>
