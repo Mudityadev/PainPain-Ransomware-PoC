@@ -2,8 +2,6 @@
 
 ## 1. Overview
 
-![Demo PainPain Ransomware PoC](web/assets/demo.png)
-
 📺 **Watch the Demo Video:**  
 [![Watch on YouTube](https://img.youtube.com/vi/0KRUst9dbDk/0.jpg)](https://youtu.be/0KRUst9dbDk?si=xA-qgz5TpnEX_twe)
 
