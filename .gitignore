@@ -1,17 +1,99 @@
 # Python
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# Environment
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# Environment variables
 .env
+.env.local
+.env.*.local
 
-# Logs and data
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Claude Code sessions
+.claude/
+
+# Private/Public Keys - NEVER commit cryptographic keys
+*.pem
+*.key
+*.pub
+*.priv
+*.p12
+*.pfx
+*.crt
+*.cer
+*.der
+
+# Encryption keys
+*.fernet_key
+*.aes_key
+*.enc_key
+decryption_key.*
+
+# Test files with sensitive data
+testDir/**/*.fernet_key
+testDir/**/encrypted_*
+testDir/**/decrypted_*
+
+# Logs and data directories
 logs/
+*.log
 c2_data/
 darkSecureFolder/
 
-# Server
+# Server specific
 c2_server/darkSecureFolder/
+c2_server/*.pem
+c2_server/*.key
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+
+# Temporary files
+tmp/
+temp/
+*.tmp
 
 # Tests
-tests/ 
+tests/
+
+# Config files with sensitive data
+config.json
+secrets.json
+credentials.json
